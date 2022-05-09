@@ -1,0 +1,168 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id 'com.google.protobuf' version "0.8.17"
+    id 'dagger.hilt.android.plugin'
+}
+apply from: "$rootDir/dependencies.gradle"
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildToolsVersion
+    defaultConfig {
+        applicationId 'com.eltaher.task'
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.compileSdk
+        versionCode versions.versionCode
+        versionName versions.versionName
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "com.task.CustomTestRunner"
+    }
+    buildFeatures {
+        viewBinding = true
+    }
+    buildTypes {
+        debug {
+            debuggable true
+        }
+        release {
+            debuggable false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        dataBinding true
+    }
+    hilt {
+        enableAggregatingTask = true
+    }
+    flavorDimensions "default"
+    productFlavors {
+        dev {
+            dimension = 'default'
+            applicationIdSuffix = ".dev"
+        }
+        prod {
+            dimension = 'default'
+        }
+    }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+    configurations.all {
+        resolutionStrategy {
+            exclude group: "org.jetbrains.kotlinx", module: "kotlinx-coroutines-debug"
+
+        }
+    }
+    defaultConfig {
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+    android {
+        sourceSets {
+            String sharedTestDir = 'src/sharedTest/resources'
+            test {
+                resources.srcDirs += sharedTestDir
+            }
+            androidTest {
+                resources.srcDirs += sharedTestDir
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // android supports
+    implementation "com.google.android.material:material:$versions.materialVersion"
+
+    // architecture components
+    implementation "androidx.fragment:fragment-ktx:$versions.fragmentVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$versions.lifecycleVersion"
+
+    // ViewModel and LiveData
+//    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+//    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+
+    // hilt
+    implementation "com.google.dagger:hilt-android:$versions.hiltVersion"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$versions.hiltViewmodel"
+    kapt "com.google.dagger:hilt-compiler:$versions.hiltVersion"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$versions.hiltVersion"
+    kaptAndroidTest "com.google.dagger:hilt-compiler:$versions.hiltVersion"
+
+    // retrofit
+    implementation "com.squareup.retrofit2:converter-moshi:$versions.retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttpInterceptorVersion"
+    implementation("com.github.bumptech.glide:glide:$versions.glid") {
+        exclude group: "com.android.support"
+    }
+
+    // moshi
+    implementation "com.squareup.moshi:moshi:$versions.moshiVersion"
+//    implementation "com.squareup.moshi:moshi-kotlin:$versions.moshiVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$versions.moshiVersion"
+
+
+    // unit test
+    testImplementation "junit:junit:$versions.junitVersion"
+    testImplementation "io.mockk:mockk:$versions.mockVersion"
+    androidTestImplementation "org.assertj:assertj-core:$versions.assertjVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$versions.espressoIntentsVersion"
+    implementation "androidx.arch.core:core-testing:$versions.coreTestingVersion"
+    implementation "androidx.test.espresso:espresso-idling-resource:$versions.espressoVersion"
+    implementation "androidx.test.espresso:espresso-contrib:$versions.espressoVersion"
+
+    //kotlin
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation "com.squareup.picasso:picasso:$versions.picassoVersion"
+    androidTestImplementation "androidx.test.ext:junit-ktx:$versions.androidXJunitVersion"
+    /**-------------------testing libs------------------------------------------**/
+
+    // Navigation
+    implementation("androidx.navigation:navigation-fragment-ktx:$versions.navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$versions.navVersion")
+
+    //DataStore
+    implementation  "androidx.datastore:datastore-core:$versions.datastoreVersion"
+    implementation  "com.google.protobuf:protobuf-javalite:3.18.0"
+    implementation  "androidx.datastore:datastore:$versions.datastoreVersion"
+
+//    implementation  "androidx.datastore:datastore-core:1.0.0-alpha01"
+}
+
+kapt {
+    correctErrorTypes true
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.14.0"
+    }
+
+    // Generates the java Protobuf-lite code for the Protobufs in this project. See
+    // https://github.com/google/protobuf-gradle-plugin#customizing-protobuf-compilation
+    // for more information.
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {
+                    option 'lite'
+                }
+            }
+        }
+    }
+}

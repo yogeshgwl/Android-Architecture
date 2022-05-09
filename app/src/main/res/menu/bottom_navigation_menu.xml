@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:enabled="true"
+        android:label="home"
+        android:icon="@drawable/ic_baseline_home_24" />
+    <item
+        android:id="@+id/schoolFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_school_24" />
+    <item
+        android:id="@+id/tradeFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_show_chart_24" />
+    <item
+        android:id="@+id/exploreFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_live_tv_24" />
+
+</menu>
