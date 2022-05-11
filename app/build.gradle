@@ -138,7 +138,7 @@ dependencies {
 
     //DataStore
     implementation  "androidx.datastore:datastore-core:$versions.datastoreVersion"
-    implementation  "com.google.protobuf:protobuf-javalite:3.18.0"
+    implementation  "com.google.protobuf:protobuf-javalite:$versions.protobufVersion"
     implementation  "androidx.datastore:datastore:$versions.datastoreVersion"
 
 //    implementation  "androidx.datastore:datastore-core:1.0.0-alpha01"
