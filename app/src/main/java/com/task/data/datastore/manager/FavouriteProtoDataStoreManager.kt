@@ -1,9 +1,6 @@
 package com.task.data.datastore.manager
 
 import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.core.DataStoreFactory
-import androidx.datastore.dataStoreFile
 import com.task.data.Resource
 import com.task.data.datastore.favourite.FavouriteProtoModel
 import com.task.data.datastore.favourite.FavouriteProtoModelSerializer
@@ -13,27 +10,24 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
-class FavouriteProtoDataStoreManager @Inject constructor(@ApplicationContext context: Context) : BaseProtoDataStoreManager() {
+class FavouriteProtoDataStoreManager @Inject constructor(@ApplicationContext context: Context) :
+    BaseProtoDataStoreManager<FavouriteProtoModel>() {
 
-    //DataStore reference which is used to manipulate object from database
-
-    private val favouriteDatastore: DataStore<FavouriteProtoModel> = DataStoreFactory.create(
-        serializer = FavouriteProtoModelSerializer,
-        produceFile = {context.dataStoreFile("Favourite_Pref")}
-    )
+    private val favouriteDatastore =
+        getDataStore(context, FavouriteProtoModelSerializer, "Favourite_Pref")
 
     /**
      * This will save Favourite object in `Favourite_Pref` file
      *
      * Building a dummy Favourite Proto object to store in database
      */
-    suspend fun saveFavourite(ids: Set<String>) : Resource<Boolean> {
-        val fp =  FavouriteProtoModel.newBuilder()
-            .addAllFavourites(ids)
+    override suspend fun <T : Any> save(value: T): Resource<Boolean> {
+        val fp = FavouriteProtoModel.newBuilder()
+            .addAllFavourites(value as Set<String>)
             .build()
 
         //calling the base class's save method to abstract the saving implementation
-       save(fp, favouriteDatastore)
+        save(fp, favouriteDatastore)
         return Resource.Success(true)
     }
 
@@ -45,42 +39,43 @@ class FavouriteProtoDataStoreManager @Inject constructor(@ApplicationContext con
      */
     fun getFavouriteFlow() = getValueAsFlow(favouriteDatastore)
 
-    /**
-     * Get all favourites
-     */
-    suspend fun getFavourite(): Resource<Set<String>> {
+    override suspend fun <T : Any> get(): T {
         val favouriteProto = getValue(favouriteDatastore)
         return (favouriteProto?.let {
             Resource.Success(it.favouritesList.toSet())
         } ?: run {
             Resource.Success(setOf())
-        })
+        }) as T
     }
 
     /**
      * Check the id is store or not
      */
-    suspend fun isFavourite(id:String): Resource<Boolean> {
-        val favouriteProto = getFavourite()
-        favouriteProto?.let {
-            return Resource.Success(it.data!!.contains(id))
+    suspend fun isFavourite(id: String): Resource<Boolean> {
+        val favouriteProto = get<Resource<Set<String>>>()
+        favouriteProto.let {
+            return Resource.Success(contains(id, it.data!!))
         }
-        return Resource.Success(false)
     }
 
     /**
      * remove selected favourite from the FavouriteProto
      */
-    suspend fun removeFromFavourites(id: String): Resource<Boolean> {
-        val favouriteProto = getFavourite()
+    override suspend fun <T : Any> remove(key: T): Resource<Boolean> {
+        val favouriteProto = get<Resource<Set<String>>>()
         favouriteProto.data?.let {
             val set = it.toMutableSet()
-            if(set.contains(id)){
-               set.remove(id)
+            if (contains(key, it)) {
+                set.remove(key as String)
             }
-            Resource.Success(saveFavourite(set))
+            Resource.Success(save(set))
         }
-       return Resource.Success(false)
+        return Resource.Success(false)
+    }
+
+    override suspend fun <T : Any, K : Any> contains(key: T, value: K): Boolean {
+        val set = value as Set<*>
+        return (set.contains(key))
     }
 
     /**

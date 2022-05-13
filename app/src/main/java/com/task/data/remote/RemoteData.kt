@@ -12,10 +12,6 @@ import java.io.IOException
 import javax.inject.Inject
 
 
-/**
- * Created by AhmedEltaher
- */
-
 class RemoteData @Inject
 constructor(private val serviceGenerator: ServiceGenerator, private val networkConnectivity: NetworkConnectivity) : RemoteDataSource {
     override suspend fun requestRecipes(): Resource<Recipes> {

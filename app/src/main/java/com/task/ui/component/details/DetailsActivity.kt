@@ -17,10 +17,6 @@ import com.task.utils.toGone
 import com.task.utils.toVisible
 import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * Created by AhmedEltaher
- */
-
 @AndroidEntryPoint
 class DetailsActivity : BaseActivity() {
 

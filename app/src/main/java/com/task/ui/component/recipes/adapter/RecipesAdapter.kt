@@ -6,12 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.task.data.dto.recipes.RecipesItem
 import com.task.databinding.RecipeItemBinding
 import com.task.ui.base.listeners.RecyclerItemListener
-import com.task.ui.component.recipes.RecipesListViewModel
 import com.task.ui.home.HomeFragmentViewModel
 
-/**
- * Created by AhmedEltaher
- */
 
 class RecipesAdapter(private val recipesListViewModel: HomeFragmentViewModel, private val recipes: List<RecipesItem>) : RecyclerView.Adapter<RecipeViewHolder>() {
 

@@ -4,10 +4,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 
-/**
- * Created by AhmedEltaher
- */
-
 
 abstract class BaseActivity : AppCompatActivity() {
 
