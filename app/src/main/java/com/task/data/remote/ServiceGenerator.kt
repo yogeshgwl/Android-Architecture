@@ -1,10 +1,10 @@
 package com.task.data.remote
 
-import com.task.data.remote.moshiFactories.MyKotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
-import com.task.BuildConfig
-import com.task.data.remote.moshiFactories.MyStandardJsonAdapters
 import com.task.BASE_URL
+import com.task.BuildConfig
+import com.task.data.remote.moshiFactories.MyKotlinJsonAdapterFactory
+import com.task.data.remote.moshiFactories.MyStandardJsonAdapters
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,9 +14,6 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Created by AhmedEltaher
- */
 
 private const val timeoutRead = 30   //In seconds
 private const val contentType = "Content-Type"

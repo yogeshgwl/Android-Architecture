@@ -12,79 +12,81 @@
 // * limitations under the License.
 // */
 ext.versions = [
-    minSdk               : 21,
-    compileSdk           : 31,
-    versionCode          : 1,
-    versionName          : '1.0.0',
-    buildToolsVersion    : '30.0.2',
+        minSdk                  : 21,
+        compileSdk              : 31,
+        versionCode             : 1,
+        versionName             : '1.0.0',
+        buildToolsVersion       : '30.0.2',
 
-    // gradle plugins
-    gradleBuildTool      : '7.1.3',
-    versionPlugin        : '0.39.0',
+        // gradle plugins
+        gradleBuildTool         : '7.1.3',
+        versionPlugin           : '0.39.0',
 
-    // kotlin
-    kotlin               : '1.6.10',
+        // kotlin
+        kotlin                  : '1.6.20',
 
-    // support library
-    materialVersion      : '1.5.0',
+        // support library
+        materialVersion         : '1.6.0',
 
-    // architecture components
-    fragmentVersion      : '1.4.1',
-    lifecycleVersion     : '2.4.1',
-    roomVersion          : '2.4.2',
-    archCompomentVersion : '2.1.0',
+        // architecture components
+        fragmentVersion         : '1.4.1',
+        lifecycleVersion        : '2.4.1',
+        roomVersion             : '2.4.2',
+        archCompomentVersion    : '2.1.0',
 
 
-    // di
-    hiltVersion      : '2.40.5',
-    hiltViewmodel    : '1.0.0-alpha03',
+        // di
+        hiltVersion             : '2.40.5',
+        hiltViewmodel           : '1.0.0-alpha03',
 
-    // network
-    retrofitVersion      : '2.9.0',
-    okhttpVersion        : '4.9.3',
+        // network
+        retrofitVersion         : '2.9.0',
+        okhttpVersion           : '4.9.3',
 
-    // moshi
-//    moshiVersion         : '1.13.0',
-      moshiVersion       : '1.11.0',
+        // moshi
+        moshiVersion            : '1.13.0',
+//      moshiVersion       : '1.11.0',
 
-    // coroutines
-    coroutinesVersion    : '1.6.1',
-    coreTestingVersion   : '2.1.0',
+        // coroutines
+        coroutinesVersion       : '1.6.1',
+        coreTestingVersion      : '2.1.0',
 
-    // debugging
-    timberVersion        : '5.0.1',
+        // debugging
+        timberVersion           : '5.0.1',
 
-    // unit test
-    truthVersion         : '1.0.1',
-    junitVersion         : '5.7.0',
-    turbineVersion       : '0.6.0',
-    robolectricVersion   : '4.4',
-    androidxTest         : '1.3.0',
-    androidxTestJunit    : '1.1.2',
-    androidXJunitVersion : '1.1.3-alpha03',
-    androidTestRunner    : '1.3.0-beta01',
-    espressoVersion      : '3.3.0',
-    mockitoKotlinVersion : '2.2.0',
-    mockitoInlineVersion : '3.5.13',
+        // unit test
+        truthVersion            : '1.0.1',
+        junitVersion            : '5.7.0',
+        turbineVersion          : '0.6.0',
+        robolectricVersion      : '4.4',
+        androidxTest            : '1.3.0',
+        androidxTestJunit       : '1.1.2',
+        androidXJunitVersion    : '1.1.3-alpha03',
+        androidTestRunner       : '1.3.0-beta01',
+        espressoVersion         : '3.3.0',
+        mockitoKotlinVersion    : '2.2.0',
+        mockitoInlineVersion    : '3.5.13',
 
-    assertjVersion       : '3.19.0',
-    espressoIntentsVersion: '3.3.0',
-    espressoVersion      : '3.3.0',
-    coroutinesTestVersion : '1.4.2-native-mt',
+        assertjVersion          : '3.19.0',
+        espressoIntentsVersion  : '3.3.0',
+        coroutinesTestVersion   : '1.4.2-native-mt',
 
-    okhttpInterceptorVersion :'4.9.0',
-    mockVersion           : '1.10.5',
-    glid                  : '4.11.0',
-    picassoVersion        : '2.71828',
+        okhttpInterceptorVersion: '4.9.0',
+        mockVersion             : '1.10.5',
+        glid                    : '4.11.0',
+        picassoVersion          : '2.71828',
 
-    // Navigation
-    livedataKtx           : '2.3.0',
-    navVersion            : "2.3.1",
+        // Navigation
+        livedataKtx             : '2.3.0',
+        navVersion              : '2.4.2',
 
-    // DataStore
-    datastoreVersion      : '1.0.0',
+        // DataStore
+        datastoreVersion        : '1.0.0',
 
-    // Protobuf
-    protobufVersion              : '3.18.0'
+        // Protobuf
+        protobufVersion         : '3.18.0',
+
+        //Splash
+        splashVersion           : '1.0.0-beta02'
 ]
 

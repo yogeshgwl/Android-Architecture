@@ -7,10 +7,6 @@ import com.task.data.dto.recipes.RecipesItem
 import com.task.databinding.RecipeItemBinding
 import com.task.ui.base.listeners.RecyclerItemListener
 
-/**
- * Created by AhmedEltaher
- */
-
 class RecipeViewHolder(private val itemBinding: RecipeItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {
 
     fun bind(recipesItem: RecipesItem, recyclerItemListener: RecyclerItemListener) {

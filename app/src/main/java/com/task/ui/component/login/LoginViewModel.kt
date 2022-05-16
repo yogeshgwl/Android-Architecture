@@ -20,9 +20,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-/**
- * Created by AhmedEltaher
- */
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val dataRepository: DataRepository) : BaseViewModel() {
 

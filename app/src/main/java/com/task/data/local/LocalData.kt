@@ -7,10 +7,6 @@ import com.task.data.dto.login.LoginResponse
 import com.task.data.error.PASS_WORD_ERROR
 import javax.inject.Inject
 
-/**
- * Created by AhmedEltaher
- */
-
 class LocalData @Inject constructor(val context: Context) {
 
     fun doLogin(loginRequest: LoginRequest): Resource<LoginResponse> {

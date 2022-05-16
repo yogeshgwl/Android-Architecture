@@ -20,9 +20,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
-/**
- * Created by AhmedEltaher
- */
 @ExperimentalCoroutinesApi
 @ExtendWith(InstantExecutorExtension::class)
 class LoginViewModelTest {

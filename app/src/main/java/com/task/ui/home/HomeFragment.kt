@@ -13,7 +13,7 @@ import com.task.data.Resource
 import com.task.data.dto.recipes.Recipes
 import com.task.data.dto.recipes.RecipesItem
 import com.task.databinding.HomeFragmentBinding
-import com.task.ui.base.BaseFragment
+import com.task.ui.base.bindables.BindingFragment
 import com.task.ui.component.details.DetailsActivity
 import com.task.ui.component.recipes.adapter.RecipesAdapter
 import com.task.utils.SingleEvent
@@ -24,10 +24,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment() {
+class HomeFragment : BindingFragment<HomeFragmentBinding>(R.layout.home_fragment) {
 
     private val homeViewModel: HomeFragmentViewModel by viewModels()
-    private lateinit var binding: HomeFragmentBinding
     private lateinit var recipesAdapter: RecipesAdapter
 
     private val ARG_PARAM1 = "param1"
@@ -66,8 +65,7 @@ class HomeFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        binding = HomeFragmentBinding.inflate(layoutInflater)
-
+        binding.viewmodel = homeViewModel
         val layoutManager = LinearLayoutManager(activity)
         binding.rvPostList.layoutManager = layoutManager
         binding.rvPostList.setHasFixedSize(true)

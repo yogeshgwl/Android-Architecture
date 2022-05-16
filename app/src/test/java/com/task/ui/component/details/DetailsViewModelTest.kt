@@ -10,15 +10,11 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
-/**
- * Created by AhmedEltaher
- */
 @ExperimentalCoroutinesApi
 @ExtendWith(InstantExecutorExtension::class)
 class DetailsViewModelTest {

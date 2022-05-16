@@ -22,9 +22,6 @@ import org.junit.Test
 import java.lang.Thread.sleep
 
 
-/**
- * Created by AhmedEltaher
- */
 @HiltAndroidTest
 class LoginActivityTest {
 

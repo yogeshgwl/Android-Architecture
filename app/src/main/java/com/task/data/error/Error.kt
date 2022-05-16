@@ -1,9 +1,5 @@
 package com.task.data.error
 
-/**
- * Created by AhmedEltaher
- */
-
 class Error(val code: Int, val description: String) {
     constructor(exception: Exception) : this(code = DEFAULT_ERROR, description = exception.message
             ?: "")

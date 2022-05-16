@@ -12,10 +12,6 @@ import com.task.data.remote.moshiFactories.MyStandardJsonAdapters
 import java.io.InputStream
 import java.lang.reflect.Type
 
-/**
- * Created by AhmedEltaher
- */
-
 object TestUtil {
     var dataStatus: DataStatus = DataStatus.Success
     var recipes: Recipes = Recipes(arrayListOf())

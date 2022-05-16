@@ -11,10 +11,6 @@ import java.io.File
 import java.lang.reflect.Type
 
 
-/**
- * Created by AhmedEltaher
- */
-
 class TestModelsGenerator {
     private var recipes: Recipes = Recipes(arrayListOf())
 

@@ -1,7 +1,13 @@
 package com.task.data.datastore.manager
 
+import android.content.Context
 import android.util.Log
 import androidx.datastore.core.DataStore
+import androidx.datastore.core.DataStoreFactory
+import androidx.datastore.core.Serializer
+import androidx.datastore.dataStore
+import androidx.datastore.dataStoreFile
+import com.task.data.datastore.DataStoreSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -9,7 +15,18 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import java.io.IOException
 
-abstract class BaseProtoDataStoreManager {
+abstract class BaseProtoDataStoreManager<T> : DataStoreSource {
+
+    fun getDataStore(
+        context: Context,
+        serializer: Serializer<T>,
+        filename: String,
+    ): DataStore<T> {
+        return DataStoreFactory.create(
+            serializer = serializer,
+            produceFile = { context.dataStoreFile(filename) }
+        )
+    }
 
     /**
      * This method will create the specific Proto DataStore where implemented in child class

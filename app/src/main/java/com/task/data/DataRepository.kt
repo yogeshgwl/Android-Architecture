@@ -12,11 +12,6 @@ import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-
-/**
- * Created by AhmedEltaher
- */
-
 class DataRepository @Inject constructor(
     private val remoteRepository: RemoteData,
     private val localRepository: LocalData,
@@ -39,11 +34,11 @@ class DataRepository @Inject constructor(
     override suspend fun addToFavourite(id: String): Flow<Resource<Boolean>> {
         return flow {
 
-            favouriteProtoDataStoreManager.getFavourite().let {
+            favouriteProtoDataStoreManager.get<Resource<Set<String>>>().let {
                 it.data?.toMutableSet()?.let { set ->
                     val isAdded = set.add(id)
                     if (isAdded) {
-                        emit(favouriteProtoDataStoreManager.saveFavourite(set))
+                        emit(favouriteProtoDataStoreManager.save(set))
                     } else {
                         emit(Resource.Success(false))
                     }
@@ -57,7 +52,7 @@ class DataRepository @Inject constructor(
 
     override suspend fun removeFromFavourite(id: String): Flow<Resource<Boolean>> {
         return flow {
-            emit(favouriteProtoDataStoreManager.removeFromFavourites(id))
+            emit(favouriteProtoDataStoreManager.remove(id))
         }.flowOn(ioDispatcher)
     }
 

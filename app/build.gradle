@@ -118,16 +118,19 @@ dependencies {
 
 
     // unit test
-    testImplementation "junit:junit:$versions.junitVersion"
+    androidTestImplementation "junit:junit:$versions.junitVersion"
+    testImplementation "androidx.test:core:$versions.androidxTest"
     testImplementation "io.mockk:mockk:$versions.mockVersion"
     androidTestImplementation "org.assertj:assertj-core:$versions.assertjVersion"
+    androidTestImplementation "androidx.test.ext:junit:$versions.androidxTestJunit"
+    androidTestImplementation "com.android.support.test:runner:$versions.androidTestRunner"
     androidTestImplementation "androidx.test.espresso:espresso-intents:$versions.espressoIntentsVersion"
     implementation "androidx.arch.core:core-testing:$versions.coreTestingVersion"
     implementation "androidx.test.espresso:espresso-idling-resource:$versions.espressoVersion"
     implementation "androidx.test.espresso:espresso-contrib:$versions.espressoVersion"
 
     //kotlin
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"
     implementation "com.squareup.picasso:picasso:$versions.picassoVersion"
     androidTestImplementation "androidx.test.ext:junit-ktx:$versions.androidXJunitVersion"
     /**-------------------testing libs------------------------------------------**/
@@ -141,7 +144,9 @@ dependencies {
     implementation  "com.google.protobuf:protobuf-javalite:$versions.protobufVersion"
     implementation  "androidx.datastore:datastore:$versions.datastoreVersion"
 
-//    implementation  "androidx.datastore:datastore-core:1.0.0-alpha01"
+    //Splash API
+    implementation "androidx.core:core-splashscreen:$versions.splashVersion"
+
 }
 
 kapt {

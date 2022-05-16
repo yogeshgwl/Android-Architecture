@@ -4,9 +4,6 @@ import com.task.data.dto.recipes.RecipesItem
 import retrofit2.Response
 import retrofit2.http.GET
 
-/**
- * Created by AhmedEltaher
- */
 
 interface RecipesService {
     @GET("recipes.json")
