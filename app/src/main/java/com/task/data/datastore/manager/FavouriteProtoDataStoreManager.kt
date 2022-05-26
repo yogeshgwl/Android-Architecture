@@ -4,13 +4,12 @@ import android.content.Context
 import com.task.data.Resource
 import com.task.data.datastore.favourite.FavouriteProtoModel
 import com.task.data.datastore.favourite.FavouriteProtoModelSerializer
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
-class FavouriteProtoDataStoreManager @Inject constructor(@ApplicationContext context: Context) :
+class FavouriteProtoDataStoreManager @Inject constructor(context: Context) :
     BaseProtoDataStoreManager<FavouriteProtoModel>() {
 
     private val favouriteDatastore =

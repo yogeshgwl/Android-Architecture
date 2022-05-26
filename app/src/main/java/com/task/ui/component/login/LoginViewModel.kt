@@ -4,13 +4,13 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.task.data.DataRepository
 import com.task.data.Resource
 import com.task.data.dto.login.LoginRequest
 import com.task.data.dto.login.LoginResponse
 import com.task.data.error.CHECK_YOUR_FIELDS
 import com.task.data.error.PASS_WORD_ERROR
 import com.task.data.error.USER_NAME_ERROR
+import com.task.data.repository.login.UserRepositoryImpl
 import com.task.ui.base.BaseViewModel
 import com.task.utils.RegexUtils.isValidEmail
 import com.task.utils.SingleEvent
@@ -21,7 +21,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val dataRepository: DataRepository) : BaseViewModel() {
+class LoginViewModel @Inject constructor(private val userRepositoryImpl: UserRepositoryImpl) :
+    BaseViewModel() {
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     private val loginLiveDataPrivate = MutableLiveData<Resource<LoginResponse>>()
@@ -51,9 +52,10 @@ class LoginViewModel @Inject constructor(private val dataRepository: DataReposit
             viewModelScope.launch {
                 loginLiveDataPrivate.value = Resource.Loading()
                 wrapEspressoIdlingResource {
-                    dataRepository.doLogin(loginRequest = LoginRequest(userName, passWord)).collect {
-                        loginLiveDataPrivate.value = it
-                    }
+                    userRepositoryImpl.doLogin(loginRequest = LoginRequest(userName, passWord))
+                        .collect {
+                            loginLiveDataPrivate.value = it
+                        }
                 }
             }
         }
