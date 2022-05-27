@@ -4,10 +4,10 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.task.data.DataRepositorySource
 import com.task.data.Resource
 import com.task.data.dto.recipes.Recipes
 import com.task.data.dto.recipes.RecipesItem
-import com.task.data.repository.recipe.RecipeRepositoryImpl
 import com.task.ui.base.BaseViewModel
 import com.task.utils.SingleEvent
 import com.task.utils.wrapEspressoIdlingResource
@@ -17,8 +17,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeFragmentViewModel @Inject constructor(private val recipeRepositoryImplSource: RecipeRepositoryImpl) :
-    BaseViewModel() {
+class HomeFragmentViewModel @Inject constructor(private val dataRepositoryRepository: DataRepositorySource) : BaseViewModel()  {
 
     /**
      * Data --> LiveData, Exposed as LiveData, Locally in viewModel as MutableLiveData
@@ -40,10 +39,10 @@ class HomeFragmentViewModel @Inject constructor(private val recipeRepositoryImpl
     val showToast: LiveData<SingleEvent<Any>> get() = showToastPrivate
 
 
+
     fun openRecipeDetails(recipe: RecipesItem) {
         openRecipeDetailsPrivate.value = SingleEvent(recipe)
     }
-
     fun showToastMessage(errorCode: Int) {
         val error = errorManager.getError(errorCode)
         showToastPrivate.value = SingleEvent(error.description)
@@ -53,7 +52,7 @@ class HomeFragmentViewModel @Inject constructor(private val recipeRepositoryImpl
         viewModelScope.launch {
             recipesLiveDataPrivate.value = Resource.Loading()
             wrapEspressoIdlingResource {
-                recipeRepositoryImplSource.requestRecipes().collect {
+                dataRepositoryRepository.requestRecipes().collect {
                     recipesLiveDataPrivate.value = it
                 }
             }
