@@ -1,8 +1,9 @@
 package com.task.ui.component.details
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.task.data.DataRepository
 import com.task.data.Resource
+import com.task.data.repository.recipe.RecipeRepositoryImpl
+import com.task.domain.usecase.recipe.FavouriteRecipeUserCase
 import com.util.InstantExecutorExtension
 import com.util.MainCoroutineRule
 import com.util.TestModelsGenerator
@@ -22,7 +23,10 @@ class DetailsViewModelTest {
     private lateinit var detailsViewModel: DetailsViewModel
 
     // Use a fake UseCase to be injected into the viewModel
-    private val dataRepository: DataRepository = mockk()
+//    private val dataRepository: DataRepository = mockk()
+    private val dataRepository: RecipeRepositoryImpl = mockk()
+
+    private val favouriteRecipeUserCase: FavouriteRecipeUserCase = mockk()
 
     // Set the main coroutines dispatcher for unit testing.
     @ExperimentalCoroutinesApi
@@ -40,7 +44,7 @@ class DetailsViewModelTest {
         //1- Mock Data
         val recipesItem = testModelsGenerator.generateRecipesItemModel()
         //2-Call
-        detailsViewModel = DetailsViewModel(dataRepository)
+        detailsViewModel = DetailsViewModel(dataRepository, favouriteRecipeUserCase)
         detailsViewModel.initIntentData(recipesItem)
         //active observer for livedata
         detailsViewModel.recipeData.observeForever { }
@@ -55,11 +59,10 @@ class DetailsViewModelTest {
         //1- Mock calls
         val isFavourites = true
         val recipesItem = testModelsGenerator.generateRecipesItemModel()
-        coEvery { dataRepository.addToFavourite(recipesItem.id) } returns flow {
-            emit(Resource.Success(true))
-        }
+        coEvery { dataRepository.addToFavourite(recipesItem.id) } returns Resource.Success(true)
+
         //2-Call
-        detailsViewModel = DetailsViewModel(dataRepository)
+        detailsViewModel = DetailsViewModel(dataRepository, favouriteRecipeUserCase)
         detailsViewModel.recipePrivate.value = recipesItem
         detailsViewModel.addToFavourites()
         //active observer for livedata
@@ -67,7 +70,7 @@ class DetailsViewModelTest {
 
         //3-verify
         val recipesData = detailsViewModel.isFavourite.value
-        assertEquals(isFavourites, recipesData?.data)
+        assertEquals(isFavourites, recipesData)
     }
 
     @Test
@@ -79,7 +82,7 @@ class DetailsViewModelTest {
             emit(Resource.Success(true))
         }
         //2-Call
-        detailsViewModel = DetailsViewModel(dataRepository)
+        detailsViewModel = DetailsViewModel(dataRepository, favouriteRecipeUserCase)
         detailsViewModel.recipePrivate.value = recipesItem
         detailsViewModel.removeFromFavourites()
         //active observer for livedata
@@ -87,7 +90,7 @@ class DetailsViewModelTest {
 
         //3-verify
         val recipesData = detailsViewModel.isFavourite.value
-        assertEquals(isFavourites, recipesData?.data)
+        assertEquals(isFavourites, recipesData)
     }
 
     @Test
@@ -99,7 +102,7 @@ class DetailsViewModelTest {
             emit(Resource.Success(true))
         }
         //2-Call
-        detailsViewModel = DetailsViewModel(dataRepository)
+        detailsViewModel = DetailsViewModel(dataRepository, favouriteRecipeUserCase)
         detailsViewModel.recipePrivate.value = recipesItem
         detailsViewModel.isFavourites()
         //active observer for livedata
@@ -107,6 +110,6 @@ class DetailsViewModelTest {
 
         //3-verify
         val recipesData = detailsViewModel.isFavourite.value
-        assertEquals(isFavourites, recipesData?.data)
+        assertEquals(isFavourites, recipesData)
     }
 }

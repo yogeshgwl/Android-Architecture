@@ -1,10 +1,10 @@
 package com.task.ui.component.recipes
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.task.data.DataRepository
 import com.task.data.Resource
 import com.task.data.dto.recipes.Recipes
 import com.task.data.error.NETWORK_ERROR
+import com.task.data.repository.recipe.RecipeRepositoryImpl
 import com.util.InstantExecutorExtension
 import com.util.MainCoroutineRule
 import com.util.TestModelsGenerator
@@ -25,7 +25,7 @@ class RecipesListViewModelTest {
     private lateinit var recipesListViewModel: RecipesListViewModel
 
     // Use a fake UseCase to be injected into the viewModel
-    private val dataRepository: DataRepository = mockk()
+    private val dataRepository: RecipeRepositoryImpl = mockk()
 
     // Set the main coroutines dispatcher for unit testing.
     @ExperimentalCoroutinesApi
