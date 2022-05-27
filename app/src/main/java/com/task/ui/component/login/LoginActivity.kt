@@ -10,12 +10,8 @@ import com.task.data.dto.login.LoginResponse
 import com.task.databinding.LoginActivityBinding
 import com.task.ui.base.BaseActivity
 import com.task.ui.component.dashboard.DashboardActivity
-import com.task.utils.SingleEvent
-import com.task.utils.observe
-import com.task.utils.setupSnackbar
-import com.task.utils.showToast
-import com.task.utils.toGone
-import com.task.utils.toVisible
+import com.task.utils.*
+import com.task.utils.analytics.AppAnalytics
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -54,11 +50,15 @@ class LoginActivity : BaseActivity() {
             is Resource.Loading -> binding.loaderView.toVisible()
             is Resource.Success -> status.data?.let {
                 binding.loaderView.toGone()
+                loginViewModel.appAnalytics.logEvents(Pair(AppAnalytics.Constants.Event_LOGIN, AppAnalytics.Constants.Action_LOGIN_SUCCESS))
                 navigateToMainScreen()
             }
             is Resource.DataError -> {
                 binding.loaderView.toGone()
-                status.errorCode?.let { loginViewModel.showToastMessage(it) }
+                status.errorCode?.let {
+                    loginViewModel.showToastMessage(it)
+                    loginViewModel.appAnalytics.logEvents(Pair(AppAnalytics.Constants.Event_LOGIN, AppAnalytics.Constants.Action_LOGIN_FAIL))
+                }
             }
         }
     }

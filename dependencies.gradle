@@ -87,6 +87,9 @@ ext.versions = [
         protobufVersion         : '3.18.0',
 
         //Splash
-        splashVersion           : '1.0.0-beta02'
+        splashVersion           : '1.0.0-beta02',
+
+        // firebase
+        firebaseVersion         : '30.0.2'
 ]
 
