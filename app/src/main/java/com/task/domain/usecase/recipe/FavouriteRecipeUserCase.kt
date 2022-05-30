@@ -17,9 +17,9 @@ class FavouriteRecipeUserCase @Inject constructor(
             is Resource.Success -> {
                 result.data
             }
-            is Resource.DataError -> result.errorCode?.let { it1 ->
+            is Resource.DataError -> result.errorCode?.let { error ->
                 Resource.DataError<Boolean>(
-                    it1
+                    error
                 )
             }
             is Resource.Loading -> throw IllegalStateException()
