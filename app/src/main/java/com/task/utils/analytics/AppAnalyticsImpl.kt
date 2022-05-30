@@ -6,15 +6,14 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.task.App
 import javax.inject.Inject
 
-class AppAnalytics @Inject constructor(val context: Context) {
+class AppAnalyticsImpl @Inject constructor(val context: Context): AppAnalytics {
 
     private val firebaseAnalytics: FirebaseAnalytics = FirebaseAnalytics.getInstance(context)
 
-    fun logEvents(logEventName: String, vararg eventActionPairs: Pair<String, Any>) {
+    override fun logEvents(logEventName: String, vararg eventActionPairs: Pair<String, Any>) {
         val bundle = Bundle()
 
         eventActionPairs.forEach { bundle.putValue(it) }
-
         firebaseAnalytics.apply {
             setAnalyticsCollectionEnabled(true)
 
@@ -32,6 +31,7 @@ class AppAnalytics @Inject constructor(val context: Context) {
             is Double -> putDouble(value.first, value.second as Double)
             is String -> putString(value.first, value.second as String)
             is Boolean -> putBoolean(value.first, value.second as Boolean)
+            else -> putString(value.first, value.second.toString())
         }
     }
 

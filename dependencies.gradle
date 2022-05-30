@@ -90,6 +90,7 @@ ext.versions = [
         splashVersion           : '1.0.0-beta02',
 
         // firebase
-        firebaseVersion         : '30.0.2'
+        firebaseVersion         : '30.0.2',
+        googleApiVersion         : '21.0.0'
 ]
 

@@ -1,11 +1,10 @@
 package com.task.di
 
 import android.content.Context
-import com.task.App
 import com.task.data.local.LocalData
 import com.task.utils.Network
 import com.task.utils.NetworkConnectivity
-import com.task.utils.analytics.AppAnalytics
+import com.task.utils.analytics.AppAnalyticsImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,7 +37,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideAppAnalytics(@ApplicationContext context: Context): AppAnalytics {
-        return AppAnalytics(context)
+    fun provideAppAnalytics(@ApplicationContext context: Context): AppAnalyticsImpl {
+        return AppAnalyticsImpl(context)
     }
 }

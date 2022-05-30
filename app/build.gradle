@@ -99,7 +99,6 @@ dependencies {
     // hilt
     implementation "com.google.dagger:hilt-android:$versions.hiltVersion"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$versions.hiltViewmodel"
-    implementation 'com.google.android.gms:play-services-measurement-api:21.0.0'
     kapt "com.google.dagger:hilt-compiler:$versions.hiltVersion"
     androidTestImplementation "com.google.dagger:hilt-android-testing:$versions.hiltVersion"
     kaptAndroidTest "com.google.dagger:hilt-compiler:$versions.hiltVersion"
@@ -147,7 +146,8 @@ dependencies {
     //Splash API
     implementation "androidx.core:core-splashscreen:$versions.splashVersion"
 
-    implementation 'com.google.firebase:firebase-core:21.0.0'
+    implementation "com.google.android.gms:play-services-measurement-api:$versions.googleApiVersion"
+    implementation "com.google.firebase:firebase-core:$versions.googleApiVersion"
     // firebase analytics
     implementation platform("com.google.firebase:firebase-bom:$versions.firebaseVersion")
     implementation 'com.google.firebase:firebase-analytics-ktx'

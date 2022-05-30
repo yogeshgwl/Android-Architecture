@@ -14,7 +14,7 @@ import com.task.data.error.USER_NAME_ERROR
 import com.task.ui.base.BaseViewModel
 import com.task.utils.RegexUtils.isValidEmail
 import com.task.utils.SingleEvent
-import com.task.utils.analytics.AppAnalytics
+import com.task.utils.analytics.AppAnalyticsImpl
 import com.task.utils.wrapEspressoIdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val dataRepository: DataRepository, val appAnalytics: AppAnalytics) : BaseViewModel() {
+class LoginViewModel @Inject constructor(private val dataRepository: DataRepository, val appAnalyticsImpl: AppAnalyticsImpl) : BaseViewModel() {
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     private val loginLiveDataPrivate = MutableLiveData<Resource<LoginResponse>>()
