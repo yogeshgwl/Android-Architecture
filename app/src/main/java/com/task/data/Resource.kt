@@ -17,3 +17,10 @@ sealed class Resource<T>(
         }
     }
 }
+
+fun <T> Resource<T>.successOr(fallback: T): T {
+    return (this as?  Resource.Success<T>)?.data ?: fallback
+}
+
+val <T> Resource<T>.data: T?
+    get() = (this as? Resource.Success)?.data

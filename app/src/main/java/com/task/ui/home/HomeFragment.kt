@@ -65,6 +65,7 @@ class HomeFragment : BindingFragment<HomeFragmentBinding>(R.layout.home_fragment
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding.viewmodel = homeViewModel
         val layoutManager = LinearLayoutManager(activity)
         binding.rvPostList.layoutManager = layoutManager
