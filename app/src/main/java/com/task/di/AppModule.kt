@@ -3,7 +3,6 @@ package com.task.di
 import android.content.Context
 import com.task.data.datastore.manager.FavouriteProtoDataStoreManager
 import com.task.data.local.UserLocalDataSource
-import com.task.data.local.LocalData
 import com.task.utils.Network
 import com.task.utils.NetworkConnectivity
 import com.task.utils.analytics.AppAnalyticsImpl

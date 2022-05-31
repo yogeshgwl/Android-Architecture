@@ -22,9 +22,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val dataRepository: DataRepository, val appAnalyticsImpl: AppAnalyticsImpl) : BaseViewModel() {
-class LoginViewModel @Inject constructor(private val userRepositoryImpl: UserRepositoryImpl) :
-    BaseViewModel() {
+class LoginViewModel @Inject constructor(private val userRepositoryImpl: UserRepositoryImpl, val appAnalyticsImpl: AppAnalyticsImpl) : BaseViewModel() {
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     private val loginLiveDataPrivate = MutableLiveData<Resource<LoginResponse>>()
