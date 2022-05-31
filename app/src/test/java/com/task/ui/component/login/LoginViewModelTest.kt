@@ -1,13 +1,13 @@
 package com.task.ui.component.login
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.task.data.DataRepository
 import com.task.data.Resource
 import com.task.data.dto.login.LoginRequest
 import com.task.data.dto.login.LoginResponse
 import com.task.data.error.CHECK_YOUR_FIELDS
 import com.task.data.error.PASS_WORD_ERROR
 import com.task.data.error.USER_NAME_ERROR
+import com.task.data.repository.login.UserRepositoryImpl
 import com.util.InstantExecutorExtension
 import com.util.MainCoroutineRule
 import io.mockk.coEvery
@@ -27,7 +27,8 @@ class LoginViewModelTest {
     private lateinit var loginViewModel: LoginViewModel
 
     // Use a fake UseCase to be injected into the viewModel
-    private val dataRepository: DataRepository = mockk()
+//    private val dataRepository: DataRepository = mockk()
+    private val dataRepository: UserRepositoryImpl = mockk()
 
     // Set the main coroutines dispatcher for unit testing.
     @ExperimentalCoroutinesApi

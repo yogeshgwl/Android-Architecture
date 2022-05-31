@@ -4,9 +4,11 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.task.data.DataRepositorySource
 import com.task.data.Resource
 import com.task.data.dto.recipes.RecipesItem
+import com.task.data.repository.recipe.RecipeRepositoryImpl
+import com.task.domain.usecase.recipe.FavouriteParameter
+import com.task.domain.usecase.recipe.FavouriteRecipeUserCase
 import com.task.ui.base.BaseViewModel
 import com.task.utils.wrapEspressoIdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,15 +17,24 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-open class DetailsViewModel @Inject constructor(private val dataRepository: DataRepositorySource) : BaseViewModel() {
+open class DetailsViewModel @Inject constructor(
+    private val recipeRepositoryImplSource: RecipeRepositoryImpl,
+    private val favouriteRecipeUserCase: FavouriteRecipeUserCase
+) : BaseViewModel() {
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     val recipePrivate = MutableLiveData<RecipesItem>()
     val recipeData: LiveData<RecipesItem> get() = recipePrivate
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    val isFavouritePrivate = MutableLiveData<Resource<Boolean>>()
-    val isFavourite: LiveData<Resource<Boolean>> get() = isFavouritePrivate
+    val isFavouritePrivate = MutableLiveData<Boolean>()
+    val isFavourite: LiveData<Boolean> get() = isFavouritePrivate
+
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> get() = _loading
+
+    private val _isError = MutableLiveData<Int>()
+    val isError: LiveData<Int> get() = _isError
 
     fun initIntentData(recipe: RecipesItem) {
         recipePrivate.value = recipe
@@ -31,11 +42,19 @@ open class DetailsViewModel @Inject constructor(private val dataRepository: Data
 
     open fun addToFavourites() {
         viewModelScope.launch {
-            isFavouritePrivate.value = Resource.Loading()
+            _loading.value = true
             wrapEspressoIdlingResource {
-                recipePrivate.value?.id?.let {
-                    dataRepository.addToFavourite(it).collect { isAdded ->
-                        isFavouritePrivate.value = isAdded
+                recipePrivate.value?.id?.let { it ->
+                    val result = favouriteRecipeUserCase(FavouriteParameter(it))
+
+                    when (result) {
+                        is Resource.Success -> isFavouritePrivate.value = result.data ?: false
+                        is Resource.DataError -> {
+                            _isError.value = result.errorCode?.let {
+                                it
+                            }
+                        }
+                        is Resource.Loading -> _loading.value = true
                     }
                 }
             }
@@ -44,19 +63,21 @@ open class DetailsViewModel @Inject constructor(private val dataRepository: Data
 
     fun removeFromFavourites() {
         viewModelScope.launch {
-            isFavouritePrivate.value = Resource.Loading()
+            _loading.value = true
             wrapEspressoIdlingResource {
-                recipePrivate.value?.id?.let {
-                    dataRepository.removeFromFavourite(it).collect { isRemoved ->
+                recipePrivate.value?.id?.let { id ->
+                    recipeRepositoryImplSource.removeFromFavourite(id).collect { isRemoved ->
                         when (isRemoved) {
                             is Resource.Success -> {
-                                isRemoved.data?.let { isFavouritePrivate.value = Resource.Success(!isRemoved.data) }
+                                isRemoved.data?.let {
+                                    isFavouritePrivate.value = it
+                                }
                             }
                             is Resource.DataError -> {
-                                isFavouritePrivate.value = isRemoved
+                                isRemoved.data?.let { isFavouritePrivate.value = it }
                             }
                             is Resource.Loading -> {
-                                isFavouritePrivate.value = isRemoved
+                                isRemoved.data?.let { isFavouritePrivate.value = it }
                             }
                         }
                     }
@@ -67,11 +88,11 @@ open class DetailsViewModel @Inject constructor(private val dataRepository: Data
 
     fun isFavourites() {
         viewModelScope.launch {
-            isFavouritePrivate.value = Resource.Loading()
+            _loading.value = true
             wrapEspressoIdlingResource {
-                recipePrivate.value?.id?.let {
-                    dataRepository.isFavourite(it).collect { isFavourites ->
-                        isFavouritePrivate.value = isFavourites
+                recipePrivate.value?.id?.let { id ->
+                    recipeRepositoryImplSource.isFavourite(id).collect { isFavourites ->
+                        isFavourites.data?.let { isFavouritePrivate.value = it }
                     }
                 }
             }

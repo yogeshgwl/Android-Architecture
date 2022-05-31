@@ -1,6 +1,8 @@
 package com.task.di
 
 import android.content.Context
+import com.task.data.datastore.manager.FavouriteProtoDataStoreManager
+import com.task.data.local.UserLocalDataSource
 import com.task.data.local.LocalData
 import com.task.utils.Network
 import com.task.utils.NetworkConnectivity
@@ -19,9 +21,13 @@ import kotlin.coroutines.CoroutineContext
 class AppModule {
     @Provides
     @Singleton
-    fun provideLocalRepository(@ApplicationContext context: Context): LocalData {
-        return LocalData(context)
-    }
+    fun provideFavouriteProtoDataStoreManager(@ApplicationContext context: Context): FavouriteProtoDataStoreManager =
+        FavouriteProtoDataStoreManager(context)
+
+    @Provides
+    @Singleton
+    fun provideLoginLocalDataSource(@ApplicationContext context: Context): UserLocalDataSource =
+        UserLocalDataSource(context)
 
     @Provides
     @Singleton
