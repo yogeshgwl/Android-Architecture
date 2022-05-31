@@ -11,20 +11,18 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/ActionBarAppTheme">
+        android:theme="@style/Theme.SplashScreenAPISample">
         <activity
             android:name=".ui.component.login.LoginActivity"
-            android:label="@string/title_activity_login" />
-        <activity
-            android:name=".ui.component.splash.SplashActivity"
-            android:theme="@style/AppTheme"
-            android:exported="true">
+            android:exported="true"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.component.recipes.RecipesListActivity"
             android:label="@string/title_activity_recipes">

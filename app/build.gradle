@@ -20,9 +20,15 @@ android {
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "com.task.CustomTestRunner"
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion "1.1.1"
+    }
     buildFeatures {
         viewBinding = true
+        dataBinding true
+        compose true
     }
+
     buildTypes {
         debug {
             debuggable true
@@ -32,9 +38,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-    buildFeatures {
-        dataBinding true
     }
     hilt {
         enableAggregatingTask = true
@@ -55,6 +58,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
+        freeCompilerArgs += [
+                "-Xallow-jvm-ir-dependencies",
+                "-Xskip-prerelease-check"]
+        useIR = true
     }
     configurations.all {
         resolutionStrategy {
@@ -78,6 +85,12 @@ android {
                 resources.srcDirs += sharedTestDir
             }
         }
+    }
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions.freeCompilerArgs += ["-Xopt-in=kotlin.time.ExperimentalTime"]
+        kotlinOptions.freeCompilerArgs += ["-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"]
+        kotlinOptions.freeCompilerArgs += ["-Xopt-in=androidx.compose.animation.ExperimentalAnimationApi"]
+        kotlinOptions.freeCompilerArgs += ["-Xopt-in=androidx.compose.foundation.ExperimentalFoundationApi"]
     }
 }
 
@@ -147,6 +160,26 @@ dependencies {
     //Splash API
     implementation "androidx.core:core-splashscreen:$versions.splashVersion"
 
+    //Compose
+    implementation "androidx.compose.ui:ui:$versions.composeVersion"
+    implementation "androidx.compose.material:material:$versions.composeVersion"
+    implementation "androidx.compose.ui:ui-tooling-preview:$versions.composeVersion"
+    implementation "androidx.activity:activity-compose:$versions.composeActivityVersion"
+    implementation "androidx.compose.compiler:compiler:$versions.composeVersion"
+
+    //Compose test
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$versions.composeVersion"
+    debugImplementation "androidx.compose.ui:ui-tooling:$versions.composeVersion"
+
+    // Navigation Compose
+    implementation("androidx.navigation:navigation-compose:$versions.navigationComposeVersion")
+
+    // compose insets
+    implementation "com.google.accompanist:accompanist-insets:$versions.accompanistVersion"
+    implementation "com.google.accompanist:accompanist-flowlayout:$versions.accompanistVersion"
+
+    // navigation animation
+    implementation "com.google.accompanist:accompanist-navigation-animation:$versions.accompanistVersion"
 }
 
 kapt {
