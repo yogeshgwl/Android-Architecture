@@ -25,9 +25,11 @@ class SplashActivity : BaseActivity(){
         setContentView(view)
         appAnalyticsImpl.logEvents(
             AppAnalyticsImpl.Constants.EVENT_USER_ACTIONS,                                                  // Log event name
-            Pair(AppAnalyticsImpl.Constants.EVENT_ACTION, AppAnalyticsImpl.Constants.ACTION_APP_OPENED),    // Can add infinite number of parameters in event action details
-            Pair("userName", "Shubham"),                                                                    //....
-            Pair("userEmail", "Shubham2@gel.com")                                                           //......
+            hashMapOf(
+                AppAnalyticsImpl.Constants.EVENT_ACTION to AppAnalyticsImpl.Constants.ACTION_APP_OPENED,
+                "userName" to "Shubham",
+                "userEmail" to "Shubham2@gel.com"
+            ),    // Can add infinite number of parameters in event action details
         )
     }
 

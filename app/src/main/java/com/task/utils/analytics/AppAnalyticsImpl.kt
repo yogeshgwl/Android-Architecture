@@ -10,10 +10,12 @@ class AppAnalyticsImpl @Inject constructor(val context: Context): AppAnalytics {
 
     private val firebaseAnalytics: FirebaseAnalytics = FirebaseAnalytics.getInstance(context)
 
-    override fun logEvents(logEventName: String, vararg eventActionPairs: Pair<String, Any>) {
+    override fun logEvents(logEventName: String, eventActionPairs: HashMap<String, Any>) {
         val bundle = Bundle()
 
-        eventActionPairs.forEach { bundle.putValue(it) }
+        eventActionPairs.forEach { (key, value) ->
+            bundle.putValue(key, value)
+        }
         firebaseAnalytics.apply {
             setAnalyticsCollectionEnabled(true)
 
@@ -23,15 +25,15 @@ class AppAnalyticsImpl @Inject constructor(val context: Context): AppAnalytics {
         }
     }
 
-    private fun Bundle.putValue(value: Pair<String, Any>) {
-        when (value.second) {
-            is Int -> putInt(value.first, value.second as Int)
-            is Float -> putFloat(value.first, value.second as Float)
-            is Long -> putLong(value.first, value.second as Long)
-            is Double -> putDouble(value.first, value.second as Double)
-            is String -> putString(value.first, value.second as String)
-            is Boolean -> putBoolean(value.first, value.second as Boolean)
-            else -> putString(value.first, value.second.toString())
+    private fun Bundle.putValue(key: String, value: Any) {
+        when (value) {
+            is Int -> putInt(key, value)
+            is Float -> putFloat(key, value)
+            is Long -> putLong(key, value)
+            is Double -> putDouble(key, value)
+            is String -> putString(key, value)
+            is Boolean -> putBoolean(key, value)
+            else -> putString(key, value.toString())
         }
     }
 

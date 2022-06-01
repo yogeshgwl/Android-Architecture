@@ -52,7 +52,9 @@ class LoginActivity : BaseActivity() {
                 binding.loaderView.toGone()
                 loginViewModel.appAnalyticsImpl.logEvents(
                     AppAnalyticsImpl.Constants.EVENT_LOGIN,
-                    Pair(AppAnalyticsImpl.Constants.EVENT_RESULT, AppAnalyticsImpl.Constants.ACTION_LOGIN_SUCCESS),
+                    hashMapOf(
+                        AppAnalyticsImpl.Constants.EVENT_RESULT to AppAnalyticsImpl.Constants.ACTION_LOGIN_SUCCESS
+                    )
                 )
                 navigateToMainScreen()
             }
@@ -62,7 +64,9 @@ class LoginActivity : BaseActivity() {
                     loginViewModel.showToastMessage(it)
                     loginViewModel.appAnalyticsImpl.logEvents(
                         AppAnalyticsImpl.Constants.EVENT_LOGIN,
-                        Pair(AppAnalyticsImpl.Constants.EVENT_RESULT, AppAnalyticsImpl.Constants.ACTION_LOGIN_FAIL)
+                        hashMapOf(
+                            AppAnalyticsImpl.Constants.EVENT_RESULT to AppAnalyticsImpl.Constants.ACTION_LOGIN_FAIL
+                        )
                     )
                 }
             }
