@@ -4,25 +4,26 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.Icon
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.task.navigation.Screen
-import com.task.ui.theme.Purple700
+import com.task.ui.theme.SplashBackground
+import com.task.ui.theme.SplashIcon
 import kotlinx.coroutines.delay
 
+/**
+ * This file represent the Splash screen for lover then android12
+ */
 const val LaunchDelay = 4000L
 const val AnimationDelay = 3000
 
@@ -49,18 +50,11 @@ fun SplashScreen(navController: NavHostController) {
 fun Splash(alpha: Float) {
     Box(
         modifier = Modifier
-            .background(if (isSystemInDarkTheme()) Color.Black else Purple700)
+            .background(SplashBackground())
             .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Icon(
-            modifier = Modifier
-                .size(120.dp)
-                .alpha(alpha = alpha),
-            imageVector = Icons.Default.Email,
-            contentDescription = "Logo Icon",
-            tint = Color.White
-        )
+        SplashIcon(alpha = alpha)
     }
 }
 

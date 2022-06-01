@@ -6,6 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.task.ui.component.splash.SplashScreen
 
+/**
+ * This class to be responsible for handling screen navigation.
+ */
 @Composable
 fun SetupNavGraph(navController: NavHostController) {
     NavHost(

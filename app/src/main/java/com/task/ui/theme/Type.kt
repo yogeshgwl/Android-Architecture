@@ -1,64 +1,63 @@
 package com.task.ui.theme
 
-import androidx.compose.material.Typography
+import androidx.compose.material3.Typography
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 
 // set of dark material typography styles to start with.
 val DarkTypography = Typography(
-    h1 = TextStyle(
+    displayLarge = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
         color = Color.White,
-        fontSize = 28.sp
+        fontSize = font_size_28
     ),
-    h2 = TextStyle(
+    displayMedium = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
         color = Color.White,
-        fontSize = 21.sp
+        fontSize = font_size_21
     ),
-    body1 = TextStyle(
+    bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
         color = Color.White,
-        fontSize = 14.sp
+        fontSize = font_size_14
     ),
-    body2 = TextStyle(
+    bodyMedium = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
         color = white87,
-        fontSize = 14.sp
+        fontSize = font_size_14
     )
 )
 
 // set of light material typography styles to start with.
 val LightTypography = Typography(
-    h1 = TextStyle(
+    displayLarge = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
         color = Teal200,
-        fontSize = 28.sp
+        fontSize = font_size_28
     ),
-    h2 = TextStyle(
+    displayMedium = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
         color = Teal200,
-        fontSize = 21.sp
+        fontSize = font_size_21
     ),
-    body1 = TextStyle(
+    bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
         color = Teal200,
-        fontSize = 14.sp
+        fontSize = font_size_14
     ),
-    body2 = TextStyle(
+    bodyMedium = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
         color = Teal200,
-        fontSize = 14.sp
+        fontSize = font_size_14
     )
 )
