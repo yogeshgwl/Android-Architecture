@@ -2,13 +2,14 @@ package com.task.ui.component.splash
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import androidx.activity.viewModels
 import com.task.databinding.SplashLayoutBinding
 import com.task.ui.base.BaseActivity
 import com.task.ui.component.login.LoginActivity
 import com.task.SPLASH_DELAY
+import com.task.utils.analytics.AppAnalyticsImpl
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by AhmedEltaher
@@ -22,6 +23,14 @@ class SplashActivity : BaseActivity(){
         binding = SplashLayoutBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        appAnalyticsImpl.logEvents(
+            AppAnalyticsImpl.Constants.EVENT_USER_ACTIONS,                                                  // Log event name
+            hashMapOf(
+                AppAnalyticsImpl.Constants.EVENT_ACTION to AppAnalyticsImpl.Constants.ACTION_APP_OPENED,
+                "userName" to "Shubham",
+                "userEmail" to "Shubham2@gel.com"
+            ),    // Can add infinite number of parameters in event action details
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,10 +42,10 @@ class SplashActivity : BaseActivity(){
     }
 
     private fun navigateToMainScreen() {
-        Handler().postDelayed({
+        Executors.newSingleThreadScheduledExecutor().schedule({
             val nextScreenIntent = Intent(this, LoginActivity::class.java)
             startActivity(nextScreenIntent)
             finish()
-        }, SPLASH_DELAY.toLong())
+        }, SPLASH_DELAY.toLong(), TimeUnit.MILLISECONDS)
     }
 }

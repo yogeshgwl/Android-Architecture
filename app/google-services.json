@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "997208143652",
+    "project_id": "android-architecture-fc1a3",
+    "storage_bucket": "android-architecture-fc1a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997208143652:android:ea71922dcbda281b7325b1",
+        "android_client_info": {
+          "package_name": "com.eltaher.task"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997208143652-gm4t2u2bejc12v9m8s2dg62g42k00l69.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eltaher.task",
+            "certificate_hash": "8caf9eeb0b4cae880ba865b430543832c91ec14a"
+          }
+        },
+        {
+          "client_id": "997208143652-c659b5j5u2mi1htr19sv5fcooah0kdkm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvkTErs-HoUAHyyNg15FgNMdyG8G0-6Ac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997208143652-c659b5j5u2mi1htr19sv5fcooah0kdkm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

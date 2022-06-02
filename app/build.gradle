@@ -43,7 +43,6 @@ android {
     productFlavors {
         dev {
             dimension = 'default'
-            applicationIdSuffix = ".dev"
         }
         prod {
             dimension = 'default'
@@ -147,7 +146,13 @@ dependencies {
     //Splash API
     implementation "androidx.core:core-splashscreen:$versions.splashVersion"
 
+    implementation "com.google.android.gms:play-services-measurement-api:$versions.googleApiVersion"
+    implementation "com.google.firebase:firebase-core:$versions.googleApiVersion"
+    // firebase analytics
+    implementation platform("com.google.firebase:firebase-bom:$versions.firebaseVersion")
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 }
+apply plugin: 'com.google.gms.google-services'
 
 kapt {
     correctErrorTypes true
