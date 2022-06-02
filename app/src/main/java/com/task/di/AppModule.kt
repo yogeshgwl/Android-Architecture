@@ -5,6 +5,7 @@ import com.task.data.datastore.manager.FavouriteProtoDataStoreManager
 import com.task.data.local.UserLocalDataSource
 import com.task.utils.Network
 import com.task.utils.NetworkConnectivity
+import com.task.utils.analytics.AppAnalyticsImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,5 +38,11 @@ class AppModule {
     @Singleton
     fun provideNetworkConnectivity(@ApplicationContext context: Context): NetworkConnectivity {
         return Network(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAppAnalytics(@ApplicationContext context: Context): AppAnalyticsImpl {
+        return AppAnalyticsImpl(context)
     }
 }

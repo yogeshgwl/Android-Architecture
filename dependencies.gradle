@@ -98,6 +98,10 @@ ext.versions = [
         accompanistVersion      : '0.24.9-beta',
 
         //Material3
-        material3Version        : '1.0.0-alpha12'
+        material3Version        : '1.0.0-alpha12',
+
+        // firebase
+        firebaseVersion         : '30.0.2',
+        googleApiVersion        : '21.0.0'
 ]
 

@@ -46,7 +46,6 @@ android {
     productFlavors {
         dev {
             dimension = 'default'
-            applicationIdSuffix = ".dev"
         }
         prod {
             dimension = 'default'
@@ -183,7 +182,14 @@ dependencies {
     //Material 3
     implementation("androidx.compose.material3:material3:$versions.material3Version")
     implementation("androidx.compose.material3:material3-window-size-class:$versions.material3Version")
+    implementation "com.google.android.gms:play-services-measurement-api:$versions.googleApiVersion"
+    implementation "com.google.firebase:firebase-core:$versions.googleApiVersion"
+
+    // firebase analytics
+    implementation platform("com.google.firebase:firebase-bom:$versions.firebaseVersion")
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 }
+apply plugin: 'com.google.gms.google-services'
 
 kapt {
     correctErrorTypes true
