@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.task.utils.analytics.AppAnalyticsImpl
+import com.task.utils.logs.AppLogger
 import javax.inject.Inject
 
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var appAnalyticsImpl: AppAnalyticsImpl
+    @Inject lateinit var appLogger: AppLogger
+    @Inject lateinit var appAnalyticsImpl: AppAnalyticsImpl
 
     abstract fun observeViewModel()
     protected abstract fun initViewBinding()

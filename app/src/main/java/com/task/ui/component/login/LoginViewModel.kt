@@ -15,6 +15,8 @@ import com.task.ui.base.BaseViewModel
 import com.task.utils.RegexUtils.isValidEmail
 import com.task.utils.SingleEvent
 import com.task.utils.analytics.AppAnalyticsImpl
+import com.task.utils.logs.AppLogger
+import com.task.utils.logs.getClassTag
 import com.task.utils.wrapEspressoIdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
@@ -22,7 +24,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val userRepositoryImpl: UserRepositoryImpl, val appAnalyticsImpl: AppAnalyticsImpl) : BaseViewModel() {
+class LoginViewModel @Inject constructor(private val userRepositoryImpl: UserRepositoryImpl, val appAnalyticsImpl: AppAnalyticsImpl, private val appLogger: AppLogger) : BaseViewModel() {
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     private val loginLiveDataPrivate = MutableLiveData<Resource<LoginResponse>>()
@@ -63,6 +65,7 @@ class LoginViewModel @Inject constructor(private val userRepositoryImpl: UserRep
 
     fun showToastMessage(errorCode: Int) {
         val error = errorManager.getError(errorCode)
+        appLogger.printLog(getClassTag(), "Login Fail "+error.description, AppLogger.LogType.E, Throwable(error.description))
         showToastPrivate.value = SingleEvent(error.description)
     }
 }
