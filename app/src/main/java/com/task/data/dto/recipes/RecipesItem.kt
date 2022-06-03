@@ -1,66 +1,63 @@
 package com.task.data.dto.recipes
 
-
 import android.os.Parcelable
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-@JsonClass(generateAdapter = false)
 @Parcelize
 data class RecipesItem(
-        @Json(name = "calories")
+        @SerializedName("calories")
         val calories: String = "",
-        @Json(name = "carbos")
+        @SerializedName("carbos")
         val carbos: String = "",
-        @Json(name = "card")
+        @SerializedName("card")
         val card: String = "",
-        @Json(name = "country")
+        @SerializedName("country")
         val country: String = "",
-        @Json(name = "deliverable_ingredients")
+        @SerializedName("deliverable_ingredients")
         val deliverableIngredients: List<String> = listOf(),
-        @Json(name = "description")
+        @SerializedName("description")
         val description: String = "",
-        @Json(name = "difficulty")
+        @SerializedName("difficulty")
         val difficulty: Int = 0,
-        @Json(name = "fats")
+        @SerializedName("fats")
         val fats: String = "",
-        @Json(name = "favorites")
+        @SerializedName("favorites")
         val favorites: Int = 0,
-        @Json(name = "fibers")
+        @SerializedName("fibers")
         val fibers: String = "",
-        @Json(name = "headline")
+        @SerializedName("headline")
         val headline: String = "",
-        @Json(name = "highlighted")
+        @SerializedName("highlighted")
         val highlighted: Boolean = false,
-        @Json(name = "id")
+        @SerializedName("id")
         val id: String = "",
-        @Json(name = "image")
+        @SerializedName("image")
         val image: String = "",
-        @Json(name = "incompatibilities")
+        @SerializedName("incompatibilities")
         val incompatibilities: String = "",
-        @Json(name = "ingredients")
+        @SerializedName("ingredients")
         val ingredients: List<String> = listOf(),
-        @Json(name = "keywords")
+        @SerializedName("keywords")
         val keywords: List<String> = listOf(),
-        @Json(name = "name")
+        @SerializedName("name")
         val name: String = "",
-        @Json(name = "products")
+        @SerializedName("products")
         val products: List<String> = listOf(),
-        @Json(name = "proteins")
+        @SerializedName("proteins")
         val proteins: String = "",
-        @Json(name = "rating")
+        @SerializedName("rating")
         val rating: Double = 0.0,
-        @Json(name = "ratings")
+        @SerializedName("ratings")
         val ratings: Int = 0,
-        @Json(name = "thumb")
+        @SerializedName("thumb")
         val thumb: String = "",
-        @Json(name = "time")
+        @SerializedName("time")
         val time: String = "",
-        @Json(name = "undeliverable_ingredients")
+        @SerializedName("undeliverable_ingredients")
         val undeliverableIngredients: List<String> = listOf(),
-        @Json(name = "user")
+        @SerializedName("user")
         val user: User = User(),
-        @Json(name = "weeks")
+        @SerializedName("weeks")
         val weeks: List<String> = listOf()
 ) : Parcelable
