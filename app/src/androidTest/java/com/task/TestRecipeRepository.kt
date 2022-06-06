@@ -16,26 +16,26 @@ class TestRecipeRepository @Inject constructor() : RecipeRepository {
     override suspend fun requestRecipes(): Flow<Resource<Recipes>> {
         return when (dataStatus) {
             DataStatus.Success -> {
-                flow { emit(Resource.Success(initData())) }
+                flow { emit(Resource.Success()) }
             }
             DataStatus.Fail -> {
                 flow { emit(Resource.DataError<Recipes>(errorCode = NETWORK_ERROR)) }
             }
             DataStatus.EmptyResponse -> {
-                flow { emit(Resource.Success(Recipes(arrayListOf()))) }
+                flow { emit(Resource.Success()) }
             }
         }
     }
 
     override suspend fun addToFavourite(id: String): Resource<Boolean> {
-        return Resource.Success(true)
+        return Resource.Success()
     }
 
     override suspend fun removeFromFavourite(id: String): Flow<Resource<Boolean>> {
-        return flow { emit(Resource.Success(true)) }
+        return flow { emit(Resource.Success()) }
     }
 
     override suspend fun isFavourite(id: String): Flow<Resource<Boolean>> {
-        return flow { emit(Resource.Success(true)) }
+        return flow { emit(Resource.Success()) }
     }
 }
