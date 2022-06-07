@@ -55,7 +55,7 @@ class RecipesListActivity : BaseActivity() {
         recipesListViewModel.getRecipes()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_actions, menu)
         // Associate searchable configuration with the SearchView
         val searchView = menu?.findItem(R.id.action_search)?.actionView as SearchView

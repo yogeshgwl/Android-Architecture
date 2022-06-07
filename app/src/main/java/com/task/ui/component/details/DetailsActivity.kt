@@ -25,7 +25,6 @@ class DetailsActivity : BaseActivity() {
     private lateinit var binding: DetailsLayoutBinding
     private var menu: Menu? = null
 
-
     override fun initViewBinding() {
         binding = DetailsLayoutBinding.inflate(layoutInflater)
         val view = binding.root
@@ -38,7 +37,7 @@ class DetailsActivity : BaseActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.details_menu, menu)
         this.menu = menu
         viewModel.isFavourites()
