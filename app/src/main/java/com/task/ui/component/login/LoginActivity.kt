@@ -21,7 +21,6 @@ import com.task.ui.component.dashboard.DashboardActivity
 import com.task.ui.theme.SplashScreenTheme
 import com.task.utils.SingleEvent
 import com.task.utils.analytics.AppAnalyticsImpl
-import com.task.utils.SingleEvent
 import com.task.utils.logs.AppLogger
 import com.task.utils.logs.getClassTag
 import com.task.utils.observe

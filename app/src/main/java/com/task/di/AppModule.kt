@@ -50,6 +50,6 @@ class AppModule {
     @Provides
     @Singleton
     fun provideApplicationLogger(): AppLogger {
-        return AppLogger()
+        return AppLogger
     }
 }

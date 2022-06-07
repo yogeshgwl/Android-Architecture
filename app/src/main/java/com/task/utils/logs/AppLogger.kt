@@ -14,19 +14,22 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
 import kotlin.text.Regex.Companion.escapeReplacement
+/**
+ * This class to be used for adding logs in application
+ */
 
-class AppLogger {
+object AppLogger {
     private val LOG_TAG = "app"
     private val APP_LOG_FILE = "/application_log.txt"
     private val BLACK_LISTED_KEYWORDS = arrayOf(
-        "passphrase",
+        "passPhrase",
         "password",
-        "serialnumber",
+        "serialNumber",
         "key",
-        "newkey",
+        "newKey",
         "email",
-        "newwpapassphrase",
-        "newpassword"
+        "newPassPhrase",
+        "newPassword"
     )
 
     /*
@@ -45,6 +48,22 @@ class AppLogger {
         ">[^</]*" // mask as <keyword>***</keyword>
     )
 
+    fun d(TAG: String, message: String) {
+        Log.d(TAG, message)
+    }
+
+    fun v(TAG: String, message: String) {
+        Log.v(TAG, message)
+    }
+
+    fun i(TAG: String, message: String) {
+        Log.i(TAG, message)
+    }
+
+    fun e(TAG: String, message: String, throwable: Throwable?) {
+        Log.e(TAG, message, throwable)
+    }
+
     fun printLog(
         callerClassName: String,
         msg: String,
@@ -53,20 +72,20 @@ class AppLogger {
     ) {
         var isErrorLog = false
         when (type) {
-            LogType.D -> Log.d(
+            LogType.D -> AppLogger.d(
                 LOG_TAG,
                 callerClassName + ":: " + escapeReplacement(sanitizeLog(msg))
             )
-            LogType.I -> Log.i(
+            LogType.I -> AppLogger.i(
                 LOG_TAG,
                 callerClassName + ":: " + escapeReplacement(sanitizeLog(msg))
             )
-            LogType.V -> Log.v(
+            LogType.V -> AppLogger.v(
                 LOG_TAG,
                 callerClassName + ":: " + escapeReplacement(sanitizeLog(msg))
             )
             LogType.E -> {
-                Log.e(
+                AppLogger.e(
                     LOG_TAG,
                     callerClassName + ":: " + escapeReplacement(sanitizeLog(msg)),
                     throwable
