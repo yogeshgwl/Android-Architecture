@@ -22,7 +22,7 @@ class TestRecipeRepository @Inject constructor() : RecipeRepository {
                 flow { emit(Resource.DataError<Recipes>(errorCode = NETWORK_ERROR)) }
             }
             DataStatus.EmptyResponse -> {
-                flow { emit(Resource.Success(Recipes(arrayListOf())) }
+                flow { emit(Resource.Success(Recipes(arrayListOf()))) }
             }
         }
     }
