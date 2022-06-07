@@ -6,10 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class User(
-    @SerializedName("email")
     val email: String = "",
-    @SerializedName("latlng")
     val latlng: String = "",
-    @SerializedName("name")
     val name: String = ""
 ) : Parcelable

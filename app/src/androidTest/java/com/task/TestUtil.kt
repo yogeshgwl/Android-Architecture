@@ -13,8 +13,9 @@ object TestUtil {
     var recipes: Recipes = Recipes(arrayListOf())
     fun initData(): Recipes {
         val jsonString = getJson("RecipesApiResponse.json")
-        val theList = GsonBuilder().create().fromJson<ArrayList<RecipesItem>>(jsonString, object : TypeToken<ArrayList<RecipesItem>>(){}.type)
-        return Recipes(theList)
+        val recipesList = GsonBuilder().create().fromJson<ArrayList<RecipesItem>>(jsonString, object : TypeToken<ArrayList<RecipesItem>>(){}.type)
+        recipes = Recipes(recipesList)
+        return recipes
     }
 
     private fun getJson(path: String): String {
