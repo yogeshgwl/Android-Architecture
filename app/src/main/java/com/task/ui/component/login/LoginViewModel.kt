@@ -19,12 +19,15 @@ import com.task.utils.logs.AppLogger
 import com.task.utils.logs.getClassTag
 import com.task.utils.wrapEspressoIdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val userRepositoryImpl: UserRepositoryImpl, val appAnalyticsImpl: AppAnalyticsImpl, private val appLogger: AppLogger) : BaseViewModel() {
+class LoginViewModel @Inject constructor(
+    private val userRepositoryImpl: UserRepositoryImpl,
+    val appAnalyticsImpl: AppAnalyticsImpl
+, private val appLogger: AppLogger) : BaseViewModel() {
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     private val loginLiveDataPrivate = MutableLiveData<Resource<LoginResponse>>()
@@ -40,6 +43,15 @@ class LoginViewModel @Inject constructor(private val userRepositoryImpl: UserRep
     private val showToastPrivate = MutableLiveData<SingleEvent<Any>>()
     val showToast: LiveData<SingleEvent<Any>> get() = showToastPrivate
 
+    var dataLoaded: Boolean = false
+
+    fun mockDataLoading(): Boolean {
+        viewModelScope.launch {
+            delay(5000)
+            dataLoaded = true
+        }
+        return dataLoaded
+    }
 
     fun doLogin(userName: String, passWord: String) {
         val isUsernameValid = isValidEmail(userName)
