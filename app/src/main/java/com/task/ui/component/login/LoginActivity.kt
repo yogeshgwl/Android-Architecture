@@ -10,6 +10,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.core.animation.doOnEnd
 import androidx.navigation.compose.rememberNavController
+import com.task.navigation.Screen
 import com.task.navigation.SetupNavGraph
 import com.task.ui.theme.SplashScreenTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,9 +25,14 @@ class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         showSplashScreen()
-        setContent {
-            val navController = rememberNavController()
-            Login(navController = navController, viewModel = loginViewModel)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            setContent {
+                SplashScreenTheme {
+                    val navController = rememberNavController()
+                    SetupNavGraph(navController = navController)
+                    navController.navigate(Screen.Login.route)
+                }
+            }
         }
 
     }

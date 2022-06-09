@@ -19,6 +19,8 @@ class ErrorMapper @Inject constructor(@ApplicationContext val context: Context) 
             Pair(PASS_WORD_ERROR, getErrorString(R.string.invalid_password)),
             Pair(USER_NAME_ERROR, getErrorString(R.string.invalid_username)),
             Pair(CHECK_YOUR_FIELDS, getErrorString(R.string.invalid_username_and_password)),
-            Pair(SEARCH_ERROR, getErrorString(R.string.search_error))
+            Pair(SEARCH_ERROR, getErrorString(R.string.search_error)),
+            Pair(FILE_NOT_FOUND, getErrorString(R.string.file_not_found_error)),
+            Pair(UNKNOWN_ERROR, getErrorString(R.string.unknown_error))
         ).withDefault { getErrorString(R.string.network_error) }
 }
