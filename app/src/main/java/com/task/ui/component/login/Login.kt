@@ -33,13 +33,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -50,12 +50,17 @@ import androidx.navigation.compose.rememberNavController
 import com.task.R
 import com.task.data.Resource
 import com.task.data.dto.login.LoginResponse
+import com.task.exceptions.AppExceptions
+import com.task.extensions.showSnackbar
 import com.task.ui.theme.size_10
+import com.task.ui.theme.size_2
+import com.task.ui.theme.size_6
+import com.task.ui.theme.size_8
 import com.task.utils.CustomTextField
 import com.task.utils.FocusedTextFieldKey
 import com.task.utils.ScreenEvent
 import com.task.utils.analytics.AppAnalyticsImpl
-import kotlinx.coroutines.launch
+import java.io.FileNotFoundException
 
 /**
  * This file represent the Login screen
@@ -90,11 +95,10 @@ fun Login(
         events.collect { event ->
             when (event) {
                 is ScreenEvent.ShowToast -> {
-                    scope.launch {
-                        snackbarHostState.showSnackbar(
-                            message = context.getString(event.messageId)
-                        )
-                    }
+                    scope.showSnackbar(
+                        snackbarHostState = snackbarHostState,
+                        message = context.getString(event.messageId)
+                    )
                 }
                 is ScreenEvent.UpdateKeyboard -> {
                     if (event.show) keyboardController?.show() else keyboardController?.hide()
@@ -116,12 +120,10 @@ fun Login(
         handleLoginResult(navController, it, viewModel)
     }
     viewModel.showToast.observe(lifecycleOwner) {
-        scope.launch {
-            snackbarHostState.showSnackbar(
-                message = it.peekContent().toString()
-
-            )
-        }
+        scope.showSnackbar(
+            snackbarHostState = snackbarHostState,
+            message = it.peekContent().toString()
+        )
     }
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
@@ -256,19 +258,20 @@ fun LoginButton(viewModel: LoginViewModel, modifier: Modifier = Modifier) {
         ),
         // Custom elevation for different states
         elevation = ButtonDefaults.elevatedButtonElevation(
-            defaultElevation = 8.dp,
-            disabledElevation = 2.dp,
+            defaultElevation = size_8,
+            disabledElevation = size_2,
             // Also pressedElevation
         ),
         modifier = modifier
             .fillMaxWidth()
-            .padding(10.dp)
+            .padding(size_10)
+            .testTag("loginButton")
 
     ) {
         Text(
             text = stringResource(id = R.string.action_sign_in),
             color = Color.White,
-            modifier = Modifier.padding(6.dp)
+            modifier = Modifier.padding(size_6)
         )
     }
 }
@@ -295,7 +298,7 @@ private fun handleLoginResult(
         is Resource.DataError -> {
             viewModel.showHideProgressBar(0f)
             status.errorCode?.let {
-                viewModel.showToastMessage(it)
+                viewModel.showToastMessage(AppExceptions.getErrorCode(throwable = FileNotFoundException()))
                 viewModel.appAnalyticsImpl.logEvents(
                     AppAnalyticsImpl.Constants.EVENT_LOGIN,
                     hashMapOf(

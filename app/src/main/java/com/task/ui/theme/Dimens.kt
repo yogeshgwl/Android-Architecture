@@ -8,6 +8,9 @@ val size_4       = 4.dp
 val size_0       = 0.dp
 val size_16      = 16.dp
 val size_10      = 10.dp
+val size_8       = 8.dp
+val size_2       = 2.dp
+val size_6       = 6.dp
 
 
 

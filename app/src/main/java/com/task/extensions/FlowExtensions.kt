@@ -1,5 +1,6 @@
 package com.task.extensions
 
+import androidx.compose.material3.SnackbarHostState
 import androidx.lifecycle.Observer
 import androidx.lifecycle.SavedStateHandle
 import kotlinx.coroutines.CoroutineScope
@@ -8,7 +9,16 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
+fun CoroutineScope.showSnackbar(snackbarHostState: SnackbarHostState,message: String){
+    launch {
+        snackbarHostState.showSnackbar(
+            message = message
+        )
+    }
+}
 
 fun <T> SavedStateHandle.getStateFlow(
     scope: CoroutineScope,
