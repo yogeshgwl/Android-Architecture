@@ -1,5 +1,6 @@
 package com.task.ui.component.login
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -52,6 +53,7 @@ import com.task.data.Resource
 import com.task.data.dto.login.LoginResponse
 import com.task.exceptions.AppExceptions
 import com.task.extensions.showSnackbar
+import com.task.navigation.Screen
 import com.task.ui.theme.size_10
 import com.task.ui.theme.size_2
 import com.task.ui.theme.size_6
@@ -164,6 +166,7 @@ fun Login(
                     modifier = Modifier.layoutId("pass")
                 )
                 LoginButton(
+                    navController = navController,
                     viewModel = viewModel,
                     modifier = Modifier.layoutId("button")
                 )
@@ -242,7 +245,11 @@ fun PasswordTextField(
 
 
 @Composable
-fun LoginButton(viewModel: LoginViewModel, modifier: Modifier = Modifier) {
+fun LoginButton(
+    viewModel: LoginViewModel,
+    modifier: Modifier = Modifier,
+    navController: NavHostController
+) {
     val areInputsValid by viewModel.areInputsValid.collectAsState()
     Button(
         onClick = viewModel::onLoginClick,
@@ -293,6 +300,7 @@ private fun handleLoginResult(
                     AppAnalyticsImpl.Constants.EVENT_RESULT to AppAnalyticsImpl.Constants.ACTION_LOGIN_SUCCESS
                 )
             )
+            Log.d("Nitin", "handleLoginResult: $navController")
             navigateToMainScreen(navController)
         }
         is Resource.DataError -> {
@@ -311,11 +319,14 @@ private fun handleLoginResult(
 }
 
 private fun navigateToMainScreen(navController: NavHostController) {
-    TODO("Handle the next screen navigation.")
+    Log.d("Nitin", "navigateToMainScreen: $navController")
+
+//    navController.popBackStack()
+    navController.navigate(Screen.Dashboard.route)
 }
 
+@Preview(showSystemUi = true, showBackground = true)
 @Composable
-@Preview(name = "Login")
 private fun LoginPreview() {
     val navController = rememberNavController()
     Login(navController = navController, viewModel = hiltViewModel())
