@@ -1,20 +1,15 @@
 package com.task.data.remote
 
-import com.squareup.moshi.Moshi
 import com.task.BASE_URL
 import com.task.BuildConfig
-import com.task.data.remote.moshiFactories.MyKotlinJsonAdapterFactory
-import com.task.data.remote.moshiFactories.MyStandardJsonAdapters
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
-
-
 private const val timeoutRead = 30   //In seconds
 private const val contentType = "Content-Type"
 private const val contentTypeValue = "application/json"
@@ -29,9 +24,9 @@ class ServiceGenerator @Inject constructor() {
         val original = chain.request()
 
         val request = original.newBuilder()
-                .header(contentType, contentTypeValue)
-                .method(original.method, original.body)
-                .build()
+            .header(contentType, contentTypeValue)
+            .method(original.method, original.body)
+            .build()
 
         chain.proceed(request)
     }
@@ -52,19 +47,12 @@ class ServiceGenerator @Inject constructor() {
         okHttpBuilder.readTimeout(timeoutRead.toLong(), TimeUnit.SECONDS)
         val client = okHttpBuilder.build()
         retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL).client(client)
-                .addConverterFactory(MoshiConverterFactory.create(getMoshi()))
-                .build()
+            .baseUrl(BASE_URL).client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
     }
 
     fun <S> createService(serviceClass: Class<S>): S {
         return retrofit.create(serviceClass)
-    }
-
-    private fun getMoshi(): Moshi {
-        return Moshi.Builder()
-                .add(MyKotlinJsonAdapterFactory())
-                .add(MyStandardJsonAdapters.FACTORY)
-                .build()
     }
 }
