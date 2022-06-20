@@ -8,11 +8,14 @@ import android.view.ViewTreeObserver
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.core.animation.doOnEnd
 import androidx.navigation.compose.rememberNavController
 import com.task.navigation.Screen
 import com.task.navigation.SetupNavGraph
-import com.task.ui.theme.SplashScreenTheme
+import com.task.ui.ApplicationApp
+import com.task.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,16 +25,20 @@ class LoginActivity : ComponentActivity() {
 
     lateinit var content: View
 
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         showSplashScreen()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            setContent {
-                SplashScreenTheme {
+            /*setContent {
+                AppTheme {
                     val navController = rememberNavController()
                     SetupNavGraph(navController = navController)
                     navController.navigate(Screen.Login.route)
                 }
+            }*/
+            setContent {
+                ApplicationApp(windowSizeClass = calculateWindowSizeClass(activity = this))
             }
         }
 
@@ -73,7 +80,7 @@ class LoginActivity : ComponentActivity() {
             }
         } else {
             setContent {
-                SplashScreenTheme {
+                AppTheme {
                     val navController = rememberNavController()
                     SetupNavGraph(navController = navController)
                 }

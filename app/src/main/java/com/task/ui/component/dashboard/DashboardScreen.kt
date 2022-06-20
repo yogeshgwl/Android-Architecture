@@ -14,11 +14,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -27,7 +24,7 @@ import com.task.ui.component.custom.BottomBar
 import com.task.ui.component.custom.BottomTab
 import com.task.ui.component.custom.TopBar
 import com.task.ui.home.HomeScreen
-import com.task.ui.theme.Purple500
+import com.task.ui.theme.Purple40
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -36,14 +33,13 @@ fun DashboardScreen(
     viewModel: DashBoardViewModel,
 ) {
 
-    val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
     val selectedTab = BottomTab.getTabFromResource(viewModel.selectedTab.value)
     Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = Modifier,
         topBar = {
             TopBar(
                 title = "Dashboard",
-                color = Purple500,
+                color = Purple40,
             )
         },
         bottomBar = {

@@ -7,7 +7,6 @@
 
 package com.task.ui.component.custom
 
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
@@ -16,25 +15,21 @@ import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.task.ui.theme.Purple500
+import com.task.ui.theme.Purple40
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(
     title: String,
-    color: Color = Purple500,
+    color: Color = Purple40,
     modifier: Modifier = Modifier,
 
     ) {
-    val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
     SmallTopAppBar(
-        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = modifier,
         title = {
             Text(text = title)
         },
@@ -45,7 +40,6 @@ fun TopBar(
         colors = TopAppBarDefaults.smallTopAppBarColors(
             containerColor = color
         ),
-        scrollBehavior = scrollBehavior
     )
 }
 

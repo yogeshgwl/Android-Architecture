@@ -210,9 +210,13 @@ dependencies {
     // navigation animation
     implementation "com.google.accompanist:accompanist-navigation-animation:$versions.accompanistVersion"
 
+    //Material icon
+    implementation("androidx.compose.material:material-icons-extended:$versions.materialIconVerison")
+
     //Material 3
     implementation("androidx.compose.material3:material3:$versions.material3Version")
     implementation("androidx.compose.material3:material3-window-size-class:$versions.material3Version")
+    implementation("androidx.compose.foundation:foundation:$versions.foundationVersion")
     implementation "com.google.android.gms:play-services-measurement-api:$versions.googleApiVersion"
     implementation "com.google.firebase:firebase-core:$versions.googleApiVersion"
 

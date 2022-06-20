@@ -13,7 +13,7 @@
 // */
 ext.versions = [
         minSdk                  : 21,
-        compileSdk              : 31,
+        compileSdk              : 32,
         versionCode             : 1,
         versionName             : '1.0.0',
         buildToolsVersion       : '30.0.2',
@@ -93,14 +93,19 @@ ext.versions = [
         //Compose
         composeVersion          : '1.1.1',
         composeActivityVersion  : '1.4.0',
-        navigationComposeVersion: '2.4.2',
+        navigationComposeVersion: '2.5.0-rc02',
         constraintVersion       : '1.0.0-rc01',
+        foundationVersion       : '1.2.0-rc01',
 
         //Compose insets
         accompanistVersion      : '0.24.9-beta',
 
         //Material3
-        material3Version        : '1.0.0-alpha12',
+        material3Version        : '1.0.0-alpha13',
+
+        //Material Icons
+        materialIconVerison     :'1.2.0-beta03',
+
 
         // firebase
         firebaseVersion         : '30.0.2',
