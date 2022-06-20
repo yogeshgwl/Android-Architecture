@@ -10,16 +10,17 @@ import androidx.navigation.ui.NavigationUI
 import com.google.android.material.snackbar.Snackbar
 import com.task.R
 import com.task.databinding.DashboardActivityBinding
-import com.task.ui.base.bindables.BindingActivity
+import com.task.ui.base.BaseActivity
 import com.task.utils.SingleEvent
 import com.task.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class DashboardActivity : BindingActivity<DashboardActivityBinding>(R.layout.dashboard_activity) {
+class DashboardActivity : BaseActivity() {
 
     private val dasboardViewModel: DashBoardViewModel by viewModels()
+    private lateinit var binding: DashboardActivityBinding
 
     fun observeToast(event: LiveData<SingleEvent<Any>>) {
         binding.root.showToast(this, event, Snackbar.LENGTH_LONG)
@@ -30,9 +31,9 @@ class DashboardActivity : BindingActivity<DashboardActivityBinding>(R.layout.das
     }
 
     override fun initViewBinding() {
-        binding {
-            viewmodel = dasboardViewModel
-        }
+        binding = DashboardActivityBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
         supportActionBar?.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
         supportActionBar?.setCustomView(R.layout.custom_toolbar)
         setupAppNaviagtion()

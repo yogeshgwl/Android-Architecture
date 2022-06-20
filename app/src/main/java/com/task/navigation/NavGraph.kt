@@ -1,9 +1,11 @@
 package com.task.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.task.ui.component.login.Login
 import com.task.ui.component.splash.SplashScreen
 
 /**
@@ -20,7 +22,7 @@ fun SetupNavGraph(navController: NavHostController) {
         }
 
         composable(route = Screen.Login.route) {
-            TODO("show login screen here")
+            Login(navController = navController, viewModel = hiltViewModel())
         }
     }
 }

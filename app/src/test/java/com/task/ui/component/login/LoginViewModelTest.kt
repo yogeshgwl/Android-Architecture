@@ -1,6 +1,7 @@
 package com.task.ui.component.login
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.SavedStateHandle
 import com.task.data.Resource
 import com.task.data.dto.login.LoginRequest
 import com.task.data.dto.login.LoginResponse
@@ -8,6 +9,7 @@ import com.task.data.error.CHECK_YOUR_FIELDS
 import com.task.data.error.PASS_WORD_ERROR
 import com.task.data.error.USER_NAME_ERROR
 import com.task.data.repository.login.UserRepositoryImpl
+import com.task.utils.analytics.AppAnalyticsImpl
 import com.util.InstantExecutorExtension
 import com.util.MainCoroutineRule
 import io.mockk.coEvery
@@ -29,6 +31,8 @@ class LoginViewModelTest {
     // Use a fake UseCase to be injected into the viewModel
 //    private val dataRepository: DataRepository = mockk()
     private val dataRepository: UserRepositoryImpl = mockk()
+    private val state: SavedStateHandle = mockk()
+    private val appAnalyticsImpl: AppAnalyticsImpl = mockk()
 
     // Set the main coroutines dispatcher for unit testing.
     @ExperimentalCoroutinesApi
@@ -58,7 +62,7 @@ class LoginViewModelTest {
         }
 
         //2-Call
-        loginViewModel = LoginViewModel(dataRepository)
+        loginViewModel = LoginViewModel(dataRepository, state, appAnalyticsImpl)
         loginViewModel.doLogin(userName, password)
         //active observer for livedata
         loginViewModel.loginLiveData.observeForever { }
@@ -81,7 +85,7 @@ class LoginViewModelTest {
         }
 
         //2-Call
-        loginViewModel = LoginViewModel(dataRepository)
+        loginViewModel = LoginViewModel(dataRepository, state, appAnalyticsImpl)
         loginViewModel.doLogin(userName, password)
         //active observer for livedata
         loginViewModel.loginLiveData.observeForever { }
@@ -104,7 +108,7 @@ class LoginViewModelTest {
         }
 
         //2-Call
-        loginViewModel = LoginViewModel(dataRepository)
+        loginViewModel = LoginViewModel(dataRepository, state, appAnalyticsImpl)
         loginViewModel.doLogin(userName, password)
         //active observer for livedata
         loginViewModel.loginLiveData.observeForever { }
@@ -127,7 +131,7 @@ class LoginViewModelTest {
         }
 
         //2-Call
-        loginViewModel = LoginViewModel(dataRepository)
+        loginViewModel = LoginViewModel(dataRepository, state, appAnalyticsImpl)
         loginViewModel.doLogin(userName, password)
         //active observer for livedata
         loginViewModel.loginLiveData.observeForever { }

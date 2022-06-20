@@ -22,7 +22,7 @@ import com.task.ui.theme.SplashIcon
 import kotlinx.coroutines.delay
 
 /**
- * This file represent the Splash screen for lover then android12
+ * This file represent the Splash screen for lower then android12
  */
 const val LaunchDelay = 4000L
 const val AnimationDelay = 3000
