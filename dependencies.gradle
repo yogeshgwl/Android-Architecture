@@ -102,6 +102,7 @@ ext.versions = [
 
         // firebase
         firebaseVersion         : '30.0.2',
-        googleApiVersion        : '21.0.0'
+        googleApiVersion        : '21.0.0',
+        gsonVersion             : '2.9.0'
 ]
 
