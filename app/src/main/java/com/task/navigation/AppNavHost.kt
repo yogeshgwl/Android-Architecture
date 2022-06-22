@@ -14,13 +14,16 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.task.ui.component.dashboard.home.navigation.HomeDestination
+import com.task.ui.component.dashboard.home.navigation.homeGraph
+import com.task.ui.component.dashboard.navigation.DashboardDestination
+import com.task.ui.component.dashboard.navigation.dashboardGraph
+import com.task.ui.component.dashboard.search.navigation.SearchDestination
+import com.task.ui.component.dashboard.search.navigation.searchGraph
 import com.task.ui.component.login.navigation.LoginDestination
 import com.task.ui.component.login.navigation.loginGraph
 
 /**
- * Top-level navigation graph. Navigation is organized as explained at
- * https://d.android.com/jetpack/compose/nav-adaptive
- *
  * The navigation graph defined in this file defines the different top level routes. Navigation
  * within each route is handled using state and Back Handlers.
  */
@@ -37,7 +40,16 @@ fun AppNavHost(
         modifier = modifier,
     ) {
         loginGraph(
+            navigateToDashboard = { navController.navigate(DashboardDestination.route) },
             windowSizeClass = windowSizeClass
+        )
+        dashboardGraph(
+            navigateToHome = { navController.navigate("${HomeDestination.route}") },
+            navigateToSearch = { navController.navigate("${SearchDestination.route}") },
+            nestedGraphs = {
+                homeGraph()
+                searchGraph()
+            }
         )
     }
 }

@@ -96,6 +96,7 @@ ext.versions = [
         navigationComposeVersion: '2.5.0-rc02',
         constraintVersion       : '1.0.0-rc01',
         foundationVersion       : '1.2.0-rc01',
+        constraintVersion       : '1.0.0-rc01',
 
         //Compose insets
         accompanistVersion      : '0.24.9-beta',
@@ -110,5 +111,6 @@ ext.versions = [
         // firebase
         firebaseVersion         : '30.0.2',
         googleApiVersion        : '21.0.0',
+        gsonVersion             : '2.9.0'
 ]
 

@@ -12,6 +12,7 @@ val size_8       = 8.dp
 val size_2       = 2.dp
 val size_6       = 6.dp
 val size_40      = 40.dp
+val size_100     = 100.dp
 
 
 

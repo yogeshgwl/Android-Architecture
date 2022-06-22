@@ -19,9 +19,13 @@ object LoginDestination : NavigationDestination {
 }
 
 fun NavGraphBuilder.loginGraph(
+    navigateToDashboard: () -> Unit,
     windowSizeClass: WindowSizeClass
 ) {
     composable(route = LoginDestination.route) {
-        Login(windowSizeClass)
+        Login(
+            navigateToDashboard = navigateToDashboard,
+            windowSizeClass = windowSizeClass
+        )
     }
 }

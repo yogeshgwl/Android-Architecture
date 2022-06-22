@@ -1,4 +1,11 @@
-package com.task.ui.home
+/**
+ * Name: HomeFragmentViewModel.kt
+ * Created by: Nitin 21 Jun 2022
+ * Copyright © 2022 GWL INC. All rights reserved.
+ * Purpose: Home view model responsible to handle server side operations.
+ */
+
+package com.task.ui.component.dashboard.home
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
@@ -12,7 +19,6 @@ import com.task.ui.base.BaseViewModel
 import com.task.utils.SingleEvent
 import com.task.utils.wrapEspressoIdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,11 +40,9 @@ class HomeFragmentViewModel @Inject constructor(private val recipeRepositoryImpl
     private val openRecipeDetailsPrivate = MutableLiveData<SingleEvent<RecipesItem>>()
     val openRecipeDetails: LiveData<SingleEvent<RecipesItem>> get() = openRecipeDetailsPrivate
 
-
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     private val showToastPrivate = MutableLiveData<SingleEvent<Any>>()
     val showToast: LiveData<SingleEvent<Any>> get() = showToastPrivate
-
 
     fun openRecipeDetails(recipe: RecipesItem) {
         openRecipeDetailsPrivate.value = SingleEvent(recipe)
@@ -59,6 +63,4 @@ class HomeFragmentViewModel @Inject constructor(private val recipeRepositoryImpl
             }
         }
     }
-
-
 }

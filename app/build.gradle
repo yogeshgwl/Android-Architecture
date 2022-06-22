@@ -96,9 +96,9 @@ android {
         useJUnitPlatform()
     }*/
     configurations {
-        implementation.exclude module:'proto-google-common-protos'
-        implementation.exclude module:'protolite-well-known-types'
-        implementation.exclude module:'protobuf-lite'
+        implementation.exclude module: 'proto-google-common-protos'
+        implementation.exclude module: 'protolite-well-known-types'
+        implementation.exclude module: 'protobuf-lite'
     }
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
@@ -134,7 +134,9 @@ dependencies {
     kaptAndroidTest "com.google.dagger:hilt-compiler:$versions.hiltVersion"
 
     // retrofit
-    implementation "com.squareup.retrofit2:converter-moshi:$versions.retrofitVersion"
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$versions.gsonVersion"
+    implementation 'com.google.code.gson:gson:2.9.0'
     implementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttpInterceptorVersion"
     implementation("com.github.bumptech.glide:glide:$versions.glid") {
         exclude group: "com.android.support"
@@ -144,12 +146,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutinesVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutinesVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutinesVersion"
-
-    // moshi
-    implementation "com.squareup.moshi:moshi:$versions.moshiVersion"
-//    implementation "com.squareup.moshi:moshi-kotlin:$versions.moshiVersion"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:$versions.moshiVersion"
-
 
     // unit test
     testImplementation "org.junit.jupiter:junit-jupiter-api:$versions.junitVersion"
@@ -181,9 +177,9 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$versions.navVersion")
 
     //DataStore
-    implementation  "androidx.datastore:datastore-core:$versions.datastoreVersion"
-    implementation  "com.google.protobuf:protobuf-javalite:$versions.protobufVersion"
-    implementation  "androidx.datastore:datastore:$versions.datastoreVersion"
+    implementation "androidx.datastore:datastore-core:$versions.datastoreVersion"
+    implementation "com.google.protobuf:protobuf-javalite:$versions.protobufVersion"
+    implementation "androidx.datastore:datastore:$versions.datastoreVersion"
 
     //Splash API
     implementation "androidx.core:core-splashscreen:$versions.splashVersion"

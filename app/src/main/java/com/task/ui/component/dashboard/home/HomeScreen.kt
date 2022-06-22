@@ -5,7 +5,7 @@
  * Purpose: UI representation of Home screen tab.
  */
 
-package com.task.ui.home
+package com.task.ui.component.dashboard.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

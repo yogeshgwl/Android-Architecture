@@ -15,8 +15,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
-import com.task.navigation.Screen
 import com.task.ui.theme.SplashBackground
 import com.task.ui.theme.SplashIcon
 import kotlinx.coroutines.delay
@@ -28,7 +26,9 @@ const val LaunchDelay = 4000L
 const val AnimationDelay = 3000
 
 @Composable
-fun SplashScreen(navController: NavHostController) {
+fun SplashScreen(
+    navigateToLogin: (String) -> Unit,
+) {
     var startAnimation by remember { mutableStateOf(false) }
     val alphaAnim = animateFloatAsState(
         targetValue = if (startAnimation) 1f else 0f,
@@ -40,8 +40,7 @@ fun SplashScreen(navController: NavHostController) {
     LaunchedEffect(key1 = true) {
         startAnimation = true
         delay(LaunchDelay)
-        navController.popBackStack()
-        navController.navigate(Screen.Login.route)
+        navigateToLogin
     }
     Splash(alpha = alphaAnim.value)
 }

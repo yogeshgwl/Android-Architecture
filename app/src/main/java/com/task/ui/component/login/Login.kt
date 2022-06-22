@@ -1,6 +1,12 @@
+/**
+ * Name: Login.kt
+ * Created by: Nitin 20 Jun 2022
+ * Copyright © 2022 GWL INC. All rights reserved.
+ * Purpose: This file represent the Login screen
+ */
+
 package com.task.ui.component.login
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.fillMaxSize
@@ -45,19 +51,17 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.DpSize
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
-import androidx.navigation.NavHostController
 import com.task.R
 import com.task.data.Resource
 import com.task.data.dto.login.LoginResponse
 import com.task.exceptions.AppExceptions
 import com.task.extensions.showSnackbar
-import com.task.navigation.Screen
+import com.task.ui.component.custom.AppGradientBackground
 import com.task.ui.theme.size_10
 import com.task.ui.theme.size_2
 import com.task.ui.theme.size_6
@@ -75,6 +79,7 @@ import java.io.FileNotFoundException
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun Login(
+    navigateToDashboard: () -> Unit,
     windowSizeClass: WindowSizeClass,
     modifier: Modifier = Modifier,
     viewModel: LoginViewModel = hiltViewModel(),
@@ -113,7 +118,7 @@ fun Login(
                 is ScreenEvent.ClearFocus -> focusManager.clearFocus()
                 is ScreenEvent.RequestFocus -> {
                     if (event.textFieldKey == FocusedTextFieldKey.EmailAddress)
-                            emailAddressFocusRequester.requestFocus()
+                        emailAddressFocusRequester.requestFocus()
                     else
                         passwordFocusRequester.requestFocus()
                 }
@@ -124,7 +129,7 @@ fun Login(
 
     // Subscribe to observables
     viewModel.loginLiveData.observe(lifecycleOwner) {
-//        handleLoginResult(navController, it, viewModel)
+        handleLoginResult(navigateToDashboard, it, viewModel)
     }
     viewModel.showToast.observe(lifecycleOwner) {
         scope.showSnackbar(
@@ -132,57 +137,59 @@ fun Login(
             message = it.peekContent().toString()
         )
     }
-    Scaffold(
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
-        content = { innerPadding ->
-            ConstraintLayout(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
-                constraintSet = ConstraintSet {
-                    val email = createRefFor("email")
-                    val pass = createRefFor("pass")
-                    val button = createRefFor("button")
-                    val progress = createRefFor("progress")
-
-                    constrain(email) {
-                        start.linkTo(parent.start)
-                    }
-                    constrain(pass) {
-                        top.linkTo(email.bottom)
-                    }
-                    constrain(button) {
-                        top.linkTo(pass.bottom)
-                    }
-                    constrain(progress) {
-                        centerTo(parent)
-                    }
-                }
-
-            ) {
-                EmailTextField(
-                    viewModel = viewModel,
-                    emailAddressFocusRequester = emailAddressFocusRequester,
-                    modifier = Modifier.layoutId("email")
-                )
-                PasswordTextField(
-                    viewModel = viewModel,
-                    passwordFocusRequester = passwordFocusRequester,
-                    modifier = Modifier.layoutId("pass")
-                )
-                LoginButton(
-                    viewModel = viewModel,
-                    modifier = Modifier.layoutId("button")
-                )
-                val progress by viewModel.progressBar.collectAsState()
-                CircularProgressIndicator(
+    AppGradientBackground {
+        Scaffold(
+            snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+            content = { innerPadding ->
+                ConstraintLayout(
                     modifier = Modifier
-                        .layoutId("progress")
-                        .alpha(progress),
-                )
+                        .fillMaxSize()
+                        .padding(innerPadding),
+                    constraintSet = ConstraintSet {
+                        val email = createRefFor("email")
+                        val pass = createRefFor("pass")
+                        val button = createRefFor("button")
+                        val progress = createRefFor("progress")
+
+                        constrain(email) {
+                            start.linkTo(parent.start)
+                        }
+                        constrain(pass) {
+                            top.linkTo(email.bottom)
+                        }
+                        constrain(button) {
+                            top.linkTo(pass.bottom)
+                        }
+                        constrain(progress) {
+                            centerTo(parent)
+                        }
+                    }
+
+                ) {
+                    EmailTextField(
+                        viewModel = viewModel,
+                        emailAddressFocusRequester = emailAddressFocusRequester,
+                        modifier = Modifier.layoutId("email")
+                    )
+                    PasswordTextField(
+                        viewModel = viewModel,
+                        passwordFocusRequester = passwordFocusRequester,
+                        modifier = Modifier.layoutId("pass")
+                    )
+                    LoginButton(
+                        viewModel = viewModel,
+                        modifier = Modifier.layoutId("button")
+                    )
+                    val progress by viewModel.progressBar.collectAsState()
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .layoutId("progress")
+                            .alpha(progress),
+                    )
+                }
             }
-        }
-    )
+        )
+    }
 }
 
 @Composable
@@ -291,7 +298,7 @@ fun LoginButton(
 }
 
 private fun handleLoginResult(
-    navController: NavHostController,
+    navigateToDashboard: () -> Unit,
     status: Resource<LoginResponse>,
     viewModel: LoginViewModel,
 ) {
@@ -307,8 +314,7 @@ private fun handleLoginResult(
                     AppAnalyticsImpl.Constants.EVENT_RESULT to AppAnalyticsImpl.Constants.ACTION_LOGIN_SUCCESS
                 )
             )
-            Log.d("Nitin", "handleLoginResult: $navController")
-            navigateToMainScreen(navController)
+            navigateToDashboard.invoke()
         }
         is Resource.DataError -> {
             viewModel.showHideProgressBar(0f)
@@ -325,12 +331,6 @@ private fun handleLoginResult(
     }
 }
 
-private fun navigateToMainScreen(navController: NavHostController) {
-    Log.d("Nitin", "navigateToMainScreen: $navController")
-
-//    navController.popBackStack()
-    navController.navigate(Screen.Dashboard.route)
-}
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Preview(showSystemUi = true, showBackground = true)

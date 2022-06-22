@@ -5,7 +5,7 @@ import androidx.core.graphics.ColorUtils
 import kotlin.math.roundToInt
 
 /**
- * Now in Android colors.
+ * App colors.
  */
 val Blue10 = Color(0xFF001F29)
 val Blue20 = Color(0xFF003544)
@@ -76,7 +76,6 @@ val Teal90 = Color(0xFFBEEAF6)
  *
  * This is needed because we can't access the token values directly. For the dynamic color theme,
  * this makes it impossible to get the 95% luminance token of the different theme colors.
- * TODO: Link to bug
  */
 internal fun Color.lighten(luminance: Float): Color {
     val hsl = FloatArray(3)

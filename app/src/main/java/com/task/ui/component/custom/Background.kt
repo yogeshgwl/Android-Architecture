@@ -1,3 +1,9 @@
+/**
+ * Name: Background.kt
+ * Created by: Nitin 21 Jun 2022
+ * Copyright © 2022 GWL INC. All rights reserved.
+ * Purpose: Background class for application.
+ */
 
 package com.task.ui.component.custom
 
@@ -21,6 +27,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.task.ui.theme.AppTheme
 import com.task.ui.theme.LocalBackgroundTheme
+import com.task.ui.theme.size_0
+import com.task.ui.theme.size_100
 import kotlin.math.tan
 
 /**
@@ -39,10 +47,10 @@ fun AppBackground(
     val tonalElevation = LocalBackgroundTheme.current.tonalElevation
     Surface(
         color = if (color == Color.Unspecified) Color.Transparent else color,
-        tonalElevation = if (tonalElevation == Dp.Unspecified) 0.dp else tonalElevation,
+        tonalElevation = if (tonalElevation == Dp.Unspecified) size_0 else tonalElevation,
         modifier = modifier.fillMaxSize(),
     ) {
-        CompositionLocalProvider(LocalAbsoluteTonalElevation provides 0.dp) {
+        CompositionLocalProvider(LocalAbsoluteTonalElevation provides size_0) {
             content()
         }
     }
@@ -122,7 +130,7 @@ fun AppGradientBackground(
 @Composable
 fun BackgroundDefault() {
     AppTheme {
-        AppBackground(Modifier.size(100.dp), content = {})
+        AppBackground(Modifier.size(size_100), content = {})
     }
 }
 
@@ -131,7 +139,7 @@ fun BackgroundDefault() {
 @Composable
 fun BackgroundDynamic() {
     AppTheme(dynamicColor = true) {
-        AppBackground(Modifier.size(100.dp), content = {})
+        AppBackground(Modifier.size(size_100), content = {})
     }
 }
 
@@ -140,7 +148,7 @@ fun BackgroundDynamic() {
 @Composable
 fun BackgroundAndroid() {
     AppTheme(androidTheme = true) {
-        AppBackground(Modifier.size(100.dp), content = {})
+        AppBackground(Modifier.size(size_100), content = {})
     }
 }
 
@@ -149,7 +157,7 @@ fun BackgroundAndroid() {
 @Composable
 fun GradientBackgroundDefault() {
     AppTheme {
-        AppGradientBackground(Modifier.size(100.dp), content = {})
+        AppGradientBackground(Modifier.size(size_100), content = {})
     }
 }
 
@@ -167,6 +175,6 @@ fun GradientBackgroundDynamic() {
 @Composable
 fun GradientBackgroundAndroid() {
     AppTheme(androidTheme = true) {
-        AppGradientBackground(Modifier.size(100.dp), content = {})
+        AppGradientBackground(Modifier.size(size_100), content = {})
     }
 }
