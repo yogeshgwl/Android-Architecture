@@ -75,6 +75,7 @@ class LoginViewModel @Inject constructor(
     private val _events = Channel<ScreenEvent>()
     val events = _events.receiveAsFlow()
 
+
     init {
         observeUserInputEvents()
         if (focusedTextField != FocusedTextFieldKey.None) focusOnLastSelectedTextField()
@@ -151,7 +152,7 @@ class LoginViewModel @Inject constructor(
 
     private fun focusOnLastSelectedTextField() {
         viewModelScope.launch {
-            _events.send(ScreenEvent.RequestFocus(focusedTextField))
+            focusedTextField?.let { ScreenEvent.RequestFocus(it) }?.let { _events.send(it) }
             delay(250)
             _events.send(ScreenEvent.UpdateKeyboard(true))
         }

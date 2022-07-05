@@ -74,6 +74,7 @@ android {
         testInstrumentationRunnerArguments clearPackageData: 'true'
     }
     testOptions {
+        unitTests.includeAndroidResources = true
         unitTests.returnDefaultValues = true
     }
     android {
@@ -92,6 +93,19 @@ android {
         kotlinOptions.freeCompilerArgs += ["-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"]
         kotlinOptions.freeCompilerArgs += ["-Xopt-in=androidx.compose.animation.ExperimentalAnimationApi"]
         kotlinOptions.freeCompilerArgs += ["-Xopt-in=androidx.compose.foundation.ExperimentalFoundationApi"]
+    }
+    /*test {
+        useJUnitPlatform()
+    }*/
+    configurations {
+        implementation.exclude module: 'proto-google-common-protos'
+        implementation.exclude module: 'protolite-well-known-types'
+        implementation.exclude module: 'protobuf-lite'
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/plexus/components.xml'
+        exclude 'plugin.xml'
     }
 }
 
@@ -115,6 +129,8 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$versions.hiltVersion"
     implementation "androidx.hilt:hilt-navigation-compose:$versions.hiltComposeNavigation"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$versions.hiltViewmodel"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.runtimeLifecycleVerison"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$versions.composeVersion"
     kapt "com.google.dagger:hilt-compiler:$versions.hiltVersion"
     androidTestImplementation "com.google.dagger:hilt-android-testing:$versions.hiltVersion"
     kaptAndroidTest "com.google.dagger:hilt-compiler:$versions.hiltVersion"
@@ -134,12 +150,19 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutinesVersion"
 
     // unit test
-    androidTestImplementation "junit:junit:$versions.junitVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$versions.junitVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$versions.junitVersion"
+
+
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+//    androidTestImplementation "junit:junit:$versions.junitVersion"
     testImplementation "androidx.test:core:$versions.androidxTest"
     testImplementation "io.mockk:mockk:$versions.mockVersion"
     androidTestImplementation "org.assertj:assertj-core:$versions.assertjVersion"
     androidTestImplementation "androidx.test.ext:junit:$versions.androidxTestJunit"
-    androidTestImplementation "com.android.support.test:runner:$versions.androidTestRunner"
+//    androidTestImplementation "com.android.support.test:runner:$versions.androidTestRunner"
+    // To use the androidx.test.runner APIs
+    androidTestImplementation("androidx.test:runner:$versions.androidTestRunner")
     androidTestImplementation "androidx.test.espresso:espresso-intents:$versions.espressoIntentsVersion"
     implementation "androidx.arch.core:core-testing:$versions.coreTestingVersion"
     implementation "androidx.test.espresso:espresso-idling-resource:$versions.espressoVersion"
@@ -156,9 +179,9 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$versions.navVersion")
 
     //DataStore
-    implementation  "androidx.datastore:datastore-core:$versions.datastoreVersion"
-    implementation  "com.google.protobuf:protobuf-javalite:$versions.protobufVersion"
-    implementation  "androidx.datastore:datastore:$versions.datastoreVersion"
+    implementation "androidx.datastore:datastore-core:$versions.datastoreVersion"
+    implementation "com.google.protobuf:protobuf-javalite:$versions.protobufVersion"
+    implementation "androidx.datastore:datastore:$versions.datastoreVersion"
 
     //Splash API
     implementation "androidx.core:core-splashscreen:$versions.splashVersion"
@@ -185,9 +208,13 @@ dependencies {
     // navigation animation
     implementation "com.google.accompanist:accompanist-navigation-animation:$versions.accompanistVersion"
 
+    //Material icon
+    implementation("androidx.compose.material:material-icons-extended:$versions.materialIconVerison")
+
     //Material 3
     implementation("androidx.compose.material3:material3:$versions.material3Version")
     implementation("androidx.compose.material3:material3-window-size-class:$versions.material3Version")
+    implementation("androidx.compose.foundation:foundation:$versions.foundationVersion")
     // Google
     implementation "com.google.android.gms:play-services-measurement-api:$versions.googleApiVersion"
     implementation "com.google.firebase:firebase-core:$versions.googleApiVersion"

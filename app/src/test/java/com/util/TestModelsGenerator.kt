@@ -1,30 +1,23 @@
 package com.util
 
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import com.task.data.dto.recipes.Recipes
 import com.task.data.dto.recipes.RecipesItem
-import com.task.data.remote.moshiFactories.MyKotlinJsonAdapterFactory
-import com.task.data.remote.moshiFactories.MyStandardJsonAdapters
 import java.io.File
-import java.lang.reflect.Type
 
 
 class TestModelsGenerator {
     private var recipes: Recipes = Recipes(arrayListOf())
 
     init {
-        val moshi = Moshi.Builder()
-                .add(MyKotlinJsonAdapterFactory())
-                .add(MyStandardJsonAdapters.FACTORY)
-                .build()
-        val type: Type = Types.newParameterizedType(List::class.java, RecipesItem::class.java)
-        val adapter: JsonAdapter<List<RecipesItem>> = moshi.adapter(type)
         val jsonString = getJson("RecipesApiResponse.json")
-        adapter.fromJson(jsonString)?.let {
-            recipes = Recipes(ArrayList(it))
-        }
+        recipes = Recipes(
+            GsonBuilder().create().fromJson<ArrayList<RecipesItem>>(
+                jsonString,
+                object : TypeToken<ArrayList<RecipesItem>>() {}.type
+            )
+        )
         print("this is $recipes")
     }
 
