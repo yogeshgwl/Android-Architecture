@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.task.ui.home.HomeFragmentViewModel" />
+            type="com.task.ui.component.dashboard.home.HomeFragmentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

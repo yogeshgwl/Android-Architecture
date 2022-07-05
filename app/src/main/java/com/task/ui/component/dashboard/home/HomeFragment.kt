@@ -1,4 +1,4 @@
-package com.task.ui.home
+package com.task.ui.component.dashboard.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -22,7 +22,11 @@ import com.task.utils.toGone
 import com.task.utils.toVisible
 import dagger.hilt.android.AndroidEntryPoint
 
-
+@Deprecated(
+    "This file will remove after implement its feature",
+    ReplaceWith("HomeScreen.kt",""),
+    DeprecationLevel.WARNING
+)
 @AndroidEntryPoint
 class HomeFragment : BindingFragment<HomeFragmentBinding>(R.layout.home_fragment) {
 
