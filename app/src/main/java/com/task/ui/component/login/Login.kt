@@ -70,6 +70,8 @@ import com.task.utils.CustomTextField
 import com.task.utils.FocusedTextFieldKey
 import com.task.utils.ScreenEvent
 import com.task.utils.analytics.AppAnalyticsImpl
+import com.task.utils.logs.AppLogger
+import com.task.utils.logs.getClassTag
 import java.io.FileNotFoundException
 
 /**
@@ -314,6 +316,7 @@ private fun handleLoginResult(
                     AppAnalyticsImpl.Constants.EVENT_RESULT to AppAnalyticsImpl.Constants.ACTION_LOGIN_SUCCESS
                 )
             )
+            viewModel.appLogger.printLog(Long.getClassTag(), "Login Success $it", AppLogger.LogType.D)
             navigateToDashboard.invoke()
         }
         is Resource.DataError -> {
@@ -326,6 +329,7 @@ private fun handleLoginResult(
                         AppAnalyticsImpl.Constants.EVENT_RESULT to AppAnalyticsImpl.Constants.ACTION_LOGIN_FAIL
                     )
                 )
+                viewModel.appLogger.printLog(Long.getClassTag(), "Login Error $it", AppLogger.LogType.E, Throwable(it.toString()))
             }
         }
     }
