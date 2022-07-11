@@ -8,7 +8,7 @@ import com.task.utils.logs.AppLogger
 import javax.inject.Inject
 
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseComponentActivity : AppCompatActivity() {
 
     @Inject lateinit var appLogger: AppLogger
     @Inject lateinit var appAnalyticsImpl: AppAnalyticsImpl

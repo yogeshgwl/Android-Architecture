@@ -39,8 +39,7 @@ class InputErrors(
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val userRepositoryImpl: UserRepositoryImpl,
-    private val handle: SavedStateHandle,
-    val appAnalyticsImpl: AppAnalyticsImpl,
+    private val handle: SavedStateHandle
 ) : BaseViewModel() {
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)

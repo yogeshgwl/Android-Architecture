@@ -28,7 +28,6 @@ android {
         dataBinding true
         compose true
     }
-
     buildTypes {
         debug {
             debuggable true
@@ -38,6 +37,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    buildFeatures {
+        dataBinding true
     }
     hilt {
         enableAggregatingTask = true
@@ -213,12 +215,15 @@ dependencies {
     implementation("androidx.compose.material3:material3:$versions.material3Version")
     implementation("androidx.compose.material3:material3-window-size-class:$versions.material3Version")
     implementation("androidx.compose.foundation:foundation:$versions.foundationVersion")
+    // Google
     implementation "com.google.android.gms:play-services-measurement-api:$versions.googleApiVersion"
     implementation "com.google.firebase:firebase-core:$versions.googleApiVersion"
 
-    // firebase analytics
+    // Google Firebase
     implementation platform("com.google.firebase:firebase-bom:$versions.firebaseVersion")
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.google.firebase:firebase-storage-ktx'
 }
 apply plugin: 'com.google.gms.google-services'
 

@@ -6,6 +6,7 @@ import com.task.data.local.UserLocalDataSource
 import com.task.utils.Network
 import com.task.utils.NetworkConnectivity
 import com.task.utils.analytics.AppAnalyticsImpl
+import com.task.utils.logs.AppLogger
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,5 +45,11 @@ class AppModule {
     @Singleton
     fun provideAppAnalytics(@ApplicationContext context: Context): AppAnalyticsImpl {
         return AppAnalyticsImpl(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideApplicationLogger(): AppLogger {
+        return AppLogger
     }
 }
