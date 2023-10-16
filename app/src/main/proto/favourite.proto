@@ -1,0 +1,14 @@
+/*
+ * Name: favourite.proto
+ * Created by: Nitin Bhawsar on May 6, 2022.
+ * Copyright © 2022 GWL. All rights reserved.
+ */
+
+syntax = "proto3";
+
+option java_package = "com.task.data.datastore.favourite";
+option java_multiple_files = true;
+
+message FavouriteProtoModel {
+  repeated string favourites = 1;
+}

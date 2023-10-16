@@ -1,0 +1,18 @@
+opsettings:
+  enable_draft_pr_reviews: false
+  additional_branches_to_be_reviewed:
+    - "master"
+    - "yaml/test"
+    - "development"
+  disable_high_level_summary: false
+  path_based_instructions:
+    - path: "**.kt"
+      instruction: "use google style guide for kotlin. Quote specifically what does not match as per the style guide"
+  ignored_pr_titles: "WIP"
+  review_language: "en"
+  disable_draft_reviews: "true"
+  disable_poem: "false"
+  early_access_program: "false"
+  exclude_file_patterns: "!dist/**,!!*.md"
+  ignored_branch: "master"
+  limit_reviews_by_label: "first_bug"
