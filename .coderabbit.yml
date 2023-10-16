@@ -1,9 +1,9 @@
-settings:
+opsettings:
   enable_draft_pr_reviews: false
   additional_branches_to_be_reviewed:
     - "master"
     - "yaml/test"
-    - "dev"
+    - "development"
   disable_high_level_summary: false
   path_based_instructions:
     - path: "**.java"
