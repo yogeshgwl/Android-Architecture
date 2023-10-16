@@ -6,8 +6,8 @@ opsettings:
     - "development"
   disable_high_level_summary: false
   path_based_instructions:
-    - path: "**.java"
-      instruction: "use google style guide for Python. Quote specifically what does not match as per the style guide"
+    - path: "**.kt"
+      instruction: "use google style guide for kotlin. Quote specifically what does not match as per the style guide"
   ignored_pr_titles: "WIP"
   review_language: "en"
   disable_draft_reviews: "true"
